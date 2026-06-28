@@ -1,0 +1,10 @@
+# Dependencies (none required — static site)
+node_modules/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+
+# Local dev server cache (npx serve)
+.serve/
