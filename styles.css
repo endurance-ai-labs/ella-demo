@@ -188,6 +188,30 @@ main { display: block; }
 }
 .memchip .dot { background: var(--accent); }
 
+/* ───────── Demo video ───────── */
+.video-frame {
+  max-width: 900px; margin: 0 auto;
+  background: var(--ink); border: 1px solid var(--line); border-radius: var(--r-xl);
+  box-shadow: var(--shadow-pop); overflow: hidden; line-height: 0;
+}
+.video-frame video { width: 100%; height: auto; display: block; background: var(--ink); aspect-ratio: 16 / 9; }
+
+/* ───────── Channels ───────── */
+.channel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.channel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px; transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.channel:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+.ch-ic { width: 46px; height: 46px; border-radius: var(--r-md); background: var(--accent-soft); color: var(--accent-2); display: grid; place-items: center; margin-bottom: 16px; }
+.ch-ic svg { width: 23px; height: 23px; }
+.channel h3 { font-size: 18px; margin-bottom: 7px; }
+.channel p { color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+.channel p strong { color: var(--ink); font-weight: 600; }
+.never-miss {
+  display: flex; align-items: center; gap: 12px; margin-top: 24px;
+  background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border-radius: var(--r-lg); padding: 16px 20px; font-size: 15px; color: var(--text);
+}
+.never-miss strong { color: var(--accent-2); }
+
 /* ───────── Comparison ───────── */
 .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .vs-col { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px 26px 30px; }
@@ -282,13 +306,13 @@ main { display: block; }
   .hero-visual { order: -1; }
   .vs-grid, .feature-grid, .price-grid, .split, .leader-stats { grid-template-columns: 1fr; }
   .leader-stats { grid-template-columns: repeat(2, 1fr); }
-  .use-grid { grid-template-columns: repeat(2, 1fr); }
+  .use-grid, .channel-grid { grid-template-columns: repeat(2, 1fr); }
   .split { gap: 32px; }
   .nav { display: none; }
 }
 @media (max-width: 560px) {
   .band { padding: 64px 20px; }
-  .use-grid { grid-template-columns: 1fr; }
+  .use-grid, .channel-grid { grid-template-columns: 1fr; }
   .leader-stats { grid-template-columns: 1fr 1fr; }
   .foot-phone { margin-left: 0; width: 100%; }
 }
