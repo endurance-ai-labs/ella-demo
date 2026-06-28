@@ -120,6 +120,9 @@
       <!-- Content -->
       <div class="content">
 
+      <!-- ════════ VIEW: This week ════════ -->
+      <section class="view" id="view-week">
+
         <!-- Page header -->
         <div class="pagehead">
           <div>
@@ -312,6 +315,286 @@
             <div class="rc-right"><div class="rc-time">11:22 AM</div><div class="rc-dur">2:46</div></div>
           </div>
         </div>
+      </section>
+
+      <!-- ════════ VIEW: Calls ════════ -->
+      <section class="view" id="view-calls" hidden>
+        <div class="pagehead">
+          <div>
+            <div class="kicker">CONVERSATIONS · CALLS</div>
+            <h1 class="page-h1">Calls</h1>
+            <p class="page-sub">Every call Ella answered this week — inbound, outbound, and after-hours.</p>
+          </div>
+          <div class="pagehead-acts">
+            <button class="btn btn-outline">Filter</button>
+            <button class="btn btn-dark">↑ Export log</button>
+          </div>
+        </div>
+        <div class="statstrip">
+          <div class="statcell"><div class="sc-top"><span class="dot blue"></span><span class="sc-label">TOTAL CALLS</span></div><div class="sc-value">1,284</div><div class="sc-sub">this week</div></div>
+          <div class="statcell"><div class="sc-top"><span class="dot green"></span><span class="sc-label">ANSWERED</span></div><div class="sc-value">1,281</div><div class="sc-sub">99.8% pickup</div></div>
+          <div class="statcell"><div class="sc-top"><span class="dot gray"></span><span class="sc-label">AVG DURATION</span></div><div class="sc-value">3:11</div><div class="sc-sub">per conversation</div></div>
+          <div class="statcell"><div class="sc-top"><span class="dot red"></span><span class="sc-label">NEEDS HANDOFF</span></div><div class="sc-value">3</div><div class="sc-sub">waiting on you</div></div>
+        </div>
+        <div class="card tablecard">
+          <div class="card-head"><div class="card-title">Recent calls</div><span class="card-kicker">LAST 48 HOURS</span></div>
+          <table class="dtable">
+            <thead><tr><th>Caller</th><th>What happened</th><th>Outcome</th><th class="num">Duration</th><th class="num">When</th></tr></thead>
+            <tbody>
+              <tr><td><div class="cellname"><span class="avatar a32 amber">M</span><div><div class="nm">Marcus R.</div><div class="code">+1 415·0192</div></div></div></td><td class="t-muted">Ready to sign — contract sent</td><td><span class="pill green"><span class="pilldot"></span>Resolved</span></td><td class="num">6:18</td><td class="num">4:42 PM</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 purple">P</span><div><div class="nm">Priya N.</div><div class="code">+1 628·7741</div></div></div></td><td class="t-muted">New lead — pricing &amp; hours</td><td><span class="pill blue"><span class="pilldot"></span>Logged</span></td><td class="num">3:02</td><td class="num">2:10 PM</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 green">C</span><div><div class="nm">Cole B.</div><div class="code">+1 503·2218</div></div></div></td><td class="t-muted">Rescheduled install to Monday</td><td><span class="pill blue"><span class="pilldot"></span>Logged</span></td><td class="num">1:54</td><td class="num">12:35 PM</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 rose">L</span><div><div class="nm">Lena Q.</div><div class="code">+1 503·8821</div></div></div></td><td class="t-muted">Asked for a human, none online</td><td><span class="pill red"><span class="pilldot"></span>Needs handoff</span></td><td class="num">0:48</td><td class="num">11:02 AM</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 olive">J</span><div><div class="nm">Julie Choi</div><div class="code">+1 415·6610</div></div></div></td><td class="t-muted">Recalled deposit · booked signing</td><td><span class="pill green"><span class="pilldot"></span>Resolved</span></td><td class="num">4:20</td><td class="num">Yest 5:01 PM</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 blue">R</span><div><div class="nm">Rhys A.</div><div class="code">+1 214·6648</div></div></div></td><td class="t-muted">Payment failed on file</td><td><span class="pill red"><span class="pilldot"></span>Needs handoff</span></td><td class="num">2:11</td><td class="num">Yest 3:48 PM</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 amber">S</span><div><div class="nm">Sage O.</div><div class="code">+1 480·2255</div></div></div></td><td class="t-muted">Quote requested · sent text</td><td><span class="pill amber"><span class="pilldot"></span>Follow-up</span></td><td class="num">2:46</td><td class="num">Yest 11:22 AM</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 gray">?</span><div><div class="nm">Unknown caller</div><div class="code">+1 415·7740</div></div></div></td><td class="t-muted">New caller, no contact match</td><td><span class="pill red"><span class="pilldot"></span>Needs handoff</span></td><td class="num">0:39</td><td class="num">Yest 9:14 AM</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 purple">D</span><div><div class="nm">Davis Vaughn</div><div class="code">+1 208·4417</div></div></div></td><td class="t-muted">Follow-up on proposal</td><td><span class="pill blue"><span class="pilldot"></span>Logged</span></td><td class="num">3:31</td><td class="num">Wed 4:05 PM</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 green">N</span><div><div class="nm">Nate Tildwell</div><div class="code">+1 602·9930</div></div></div></td><td class="t-muted">New lead — pricing</td><td><span class="pill amber"><span class="pilldot"></span>Follow-up</span></td><td class="num">1:12</td><td class="num">Wed 1:19 PM</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ════════ VIEW: Contacts ════════ -->
+      <section class="view" id="view-contacts" hidden>
+        <div class="pagehead">
+          <div>
+            <div class="kicker">CONVERSATIONS · CONTACTS</div>
+            <h1 class="page-h1">Contacts</h1>
+            <p class="page-sub">Everyone Ella has spoken with — each with full conversation memory.</p>
+          </div>
+          <div class="pagehead-acts">
+            <button class="btn btn-outline">Import</button>
+            <button class="btn btn-dark">+ New contact</button>
+          </div>
+        </div>
+        <div class="statstrip">
+          <div class="statcell"><div class="sc-top"><span class="dot blue"></span><span class="sc-label">TOTAL CONTACTS</span></div><div class="sc-value">2,418</div><div class="sc-sub">in memory</div></div>
+          <div class="statcell"><div class="sc-top"><span class="dot amber"></span><span class="sc-label">ACTIVE LEADS</span></div><div class="sc-value">186</div><div class="sc-sub">in pipeline</div></div>
+          <div class="statcell"><div class="sc-top"><span class="dot green"></span><span class="sc-label">CUSTOMERS</span></div><div class="sc-value">1,042</div><div class="sc-sub">closed-won</div></div>
+          <div class="statcell"><div class="sc-top"><span class="dot purple"></span><span class="sc-label">VIP</span></div><div class="sc-value">37</div><div class="sc-sub">priority routing</div></div>
+        </div>
+        <div class="card tablecard">
+          <div class="card-head"><div class="card-title">All contacts</div><span class="card-kicker">SORTED BY LAST CONTACT</span></div>
+          <table class="dtable">
+            <thead><tr><th>Contact</th><th>Type</th><th class="num">Calls</th><th class="num">Memories</th><th class="num">Last contact</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><div class="cellname"><span class="avatar a32 amber">M</span><div><div class="nm">Marcus R.</div><div class="code">+1 415·0192</div></div></div></td><td><span class="pill purple">VIP</span></td><td class="num">12</td><td class="num">8</td><td class="num">Today</td><td><span class="rowact">Open →</span></td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 olive">J</span><div><div class="nm">Julie Choi</div><div class="code">+1 415·6610</div></div></div></td><td><span class="pill green">Customer</span></td><td class="num">7</td><td class="num">5</td><td class="num">Yesterday</td><td><span class="rowact">Open →</span></td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 purple">P</span><div><div class="nm">Priya N.</div><div class="code">+1 628·7741</div></div></div></td><td><span class="pill amber">Lead</span></td><td class="num">2</td><td class="num">2</td><td class="num">Today</td><td><span class="rowact">Open →</span></td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 green">C</span><div><div class="nm">Cole B.</div><div class="code">+1 503·2218</div></div></div></td><td><span class="pill green">Customer</span></td><td class="num">9</td><td class="num">6</td><td class="num">Today</td><td><span class="rowact">Open →</span></td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 rose">L</span><div><div class="nm">Lena Q.</div><div class="code">+1 503·8821</div></div></div></td><td><span class="pill amber">Lead</span></td><td class="num">3</td><td class="num">3</td><td class="num">Today</td><td><span class="rowact">Open →</span></td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 blue">R</span><div><div class="nm">Rhys A.</div><div class="code">+1 214·6648</div></div></div></td><td><span class="pill green">Customer</span></td><td class="num">5</td><td class="num">4</td><td class="num">Yesterday</td><td><span class="rowact">Open →</span></td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 amber">S</span><div><div class="nm">Sage O.</div><div class="code">+1 480·2255</div></div></div></td><td><span class="pill amber">Lead</span></td><td class="num">4</td><td class="num">3</td><td class="num">Yesterday</td><td><span class="rowact">Open →</span></td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 purple">D</span><div><div class="nm">Davis Vaughn</div><div class="code">+1 208·4417</div></div></div></td><td><span class="pill green">Customer</span></td><td class="num">11</td><td class="num">7</td><td class="num">Wed</td><td><span class="rowact">Open →</span></td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 olive">N</span><div><div class="nm">Nate Tildwell</div><div class="code">+1 602·9930</div></div></div></td><td><span class="pill amber">Lead</span></td><td class="num">1</td><td class="num">1</td><td class="num">Wed</td><td><span class="rowact">Open →</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ════════ VIEW: Memory ════════ -->
+      <section class="view" id="view-memory" hidden>
+        <div class="pagehead">
+          <div>
+            <div class="kicker">CONVERSATIONS · MEMORY</div>
+            <h1 class="page-h1">Memory</h1>
+            <p class="page-sub">What Ella remembers about each customer — recalled automatically on every call.</p>
+          </div>
+          <div class="pagehead-acts">
+            <button class="btn btn-dark">✦ Ask Ella to summarize</button>
+          </div>
+        </div>
+        <div class="mem-grid">
+          <div class="mem-card">
+            <div class="mem-card-head"><span class="avatar a38 amber">M</span><div><div class="mc-name">Marcus R.</div><div class="mc-sub">VIP · 12 calls</div></div><span class="mem-count">↻ 8 memories</span></div>
+            <div class="mem-list">
+              <div class="mem-item"><span class="mi-dot"></span><span>Closing on the Westview unit — walkthrough went well.</span><span class="mi-date">Jun 20</span></div>
+              <div class="mem-item"><span class="mi-dot"></span><span>Deposit already on file from June.</span><span class="mi-date">Jun 11</span></div>
+              <div class="mem-item"><span class="mi-dot"></span><span>Prefers calls after 5 PM; works mornings on-site.</span><span class="mi-date">Jun 4</span></div>
+            </div>
+          </div>
+          <div class="mem-card">
+            <div class="mem-card-head"><span class="avatar a38 olive">J</span><div><div class="mc-name">Julie Choi</div><div class="mc-sub">Customer · 7 calls</div></div><span class="mem-count">↻ 5 memories</span></div>
+            <div class="mem-list">
+              <div class="mem-item"><span class="mi-dot"></span><span>Signed contract booked for Thursday afternoon.</span><span class="mi-date">Jun 19</span></div>
+              <div class="mem-item"><span class="mi-dot"></span><span>Asked to receive everything by email, not text.</span><span class="mi-date">Jun 12</span></div>
+              <div class="mem-item"><span class="mi-dot"></span><span>Referred by Davis Vaughn.</span><span class="mi-date">May 30</span></div>
+            </div>
+          </div>
+          <div class="mem-card">
+            <div class="mem-card-head"><span class="avatar a38 blue">R</span><div><div class="mc-name">Rhys A.</div><div class="mc-sub">Customer · 5 calls</div></div><span class="mem-count">↻ 4 memories</span></div>
+            <div class="mem-list">
+              <div class="mem-item"><span class="mi-dot"></span><span>Card on file failed — needs a new payment method.</span><span class="mi-date">Jun 19</span></div>
+              <div class="mem-item"><span class="mi-dot"></span><span>On the annual plan since March.</span><span class="mi-date">Mar 14</span></div>
+              <div class="mem-item"><span class="mi-dot"></span><span>Best reached on weekends.</span><span class="mi-date">Feb 28</span></div>
+            </div>
+          </div>
+          <div class="mem-card">
+            <div class="mem-card-head"><span class="avatar a38 purple">D</span><div><div class="mc-name">Davis Vaughn</div><div class="mc-sub">Customer · 11 calls</div></div><span class="mem-count">↻ 7 memories</span></div>
+            <div class="mem-list">
+              <div class="mem-item"><span class="mi-dot"></span><span>Reviewing the expanded proposal with his partner.</span><span class="mi-date">Wed</span></div>
+              <div class="mem-item"><span class="mi-dot"></span><span>Sensitive to price — wants the phased option.</span><span class="mi-date">Jun 9</span></div>
+              <div class="mem-item"><span class="mi-dot"></span><span>Has referred 2 customers this quarter.</span><span class="mi-date">May 22</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════ VIEW: Flows ════════ -->
+      <section class="view" id="view-flows" hidden>
+        <div class="pagehead">
+          <div>
+            <div class="kicker">AUTOMATION · FLOWS</div>
+            <h1 class="page-h1">Flows</h1>
+            <p class="page-sub">Automations Ella runs on your behalf — triggered by what happens on a call.</p>
+          </div>
+          <div class="pagehead-acts">
+            <button class="btn btn-dark">+ New flow</button>
+          </div>
+        </div>
+        <div class="card tablecard">
+          <div class="card-head"><div class="card-title">Active automations</div><span class="card-kicker">6 FLOWS</span></div>
+          <table class="dtable">
+            <thead><tr><th>Flow</th><th>Trigger</th><th class="num">Steps</th><th class="num">Runs this week</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="nm">After-hours answering</td><td class="t-muted">Inbound call · outside hours</td><td class="num">4</td><td class="num">1,107</td><td><span class="pill green"><span class="pilldot"></span>Active</span></td></tr>
+              <tr><td class="nm">Missed-call text-back</td><td class="t-muted">Call ends · no answer</td><td class="num">2</td><td class="num">94</td><td><span class="pill green"><span class="pilldot"></span>Active</span></td></tr>
+              <tr><td class="nm">New-lead nurture</td><td class="t-muted">New contact created</td><td class="num">6</td><td class="num">186</td><td><span class="pill green"><span class="pilldot"></span>Active</span></td></tr>
+              <tr><td class="nm">Quote follow-up</td><td class="t-muted">Quote requested on call</td><td class="num">3</td><td class="num">52</td><td><span class="pill green"><span class="pilldot"></span>Active</span></td></tr>
+              <tr><td class="nm">Payment-failed handoff</td><td class="t-muted">Billing issue detected</td><td class="num">3</td><td class="num">11</td><td><span class="pill green"><span class="pilldot"></span>Active</span></td></tr>
+              <tr><td class="nm">Review request</td><td class="t-muted">Job marked complete</td><td class="num">2</td><td class="num">0</td><td><span class="pill gray"><span class="pilldot"></span>Paused</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ════════ VIEW: Routing ════════ -->
+      <section class="view" id="view-routing" hidden>
+        <div class="pagehead">
+          <div>
+            <div class="kicker">AUTOMATION · ROUTING</div>
+            <h1 class="page-h1">Routing</h1>
+            <p class="page-sub">How Ella directs each caller — by keypad choice, hours, and caller history.</p>
+          </div>
+          <div class="pagehead-acts">
+            <button class="btn btn-outline">Test call</button>
+            <button class="btn btn-dark">Edit menu</button>
+          </div>
+        </div>
+        <div class="view-section-label">Keypad menu</div>
+        <div class="route-card">
+          <div class="route-row"><span class="route-key">1</span><span class="route-label">Existing customer</span><span class="route-arrow">→</span><span class="route-dest">Ella, with history</span></div>
+          <div class="route-row"><span class="route-key">2</span><span class="route-label">New lead</span><span class="route-arrow">→</span><span class="route-dest">Nurture flow</span></div>
+          <div class="route-row"><span class="route-key">3</span><span class="route-label">Billing &amp; contracts</span><span class="route-arrow">→</span><span class="route-dest">Payments</span></div>
+          <div class="route-row"><span class="route-key">4</span><span class="route-label">Book an appointment</span><span class="route-arrow">→</span><span class="route-dest">Calendar</span></div>
+          <div class="route-row muted"><span class="route-key">0</span><span class="route-label">Reach a human</span><span class="route-arrow">→</span><span class="route-dest">Transfer to Avery</span></div>
+        </div>
+        <div class="view-section-label" style="margin-top:22px;">Hours &amp; fallback</div>
+        <div class="route-card">
+          <div class="route-row"><span class="route-key">◷</span><span class="route-label">Business hours · Mon–Fri 8 AM–6 PM</span><span class="route-arrow">→</span><span class="route-dest">Ella + live transfer</span></div>
+          <div class="route-row"><span class="route-key">☾</span><span class="route-label">After hours &amp; weekends</span><span class="route-arrow">→</span><span class="route-dest">Ella answers fully</span></div>
+          <div class="route-row muted"><span class="route-key">⚑</span><span class="route-label">VIP caller detected</span><span class="route-arrow">→</span><span class="route-dest">Priority + notify owner</span></div>
+        </div>
+      </section>
+
+      <!-- ════════ VIEW: Leads ════════ -->
+      <section class="view" id="view-leads" hidden>
+        <div class="pagehead">
+          <div>
+            <div class="kicker">REVENUE · LEADS</div>
+            <h1 class="page-h1">Leads</h1>
+            <p class="page-sub">Pipeline Ella is working — captured, qualified, and followed up automatically.</p>
+          </div>
+          <div class="pagehead-acts">
+            <button class="btn btn-dark">+ Add lead</button>
+          </div>
+        </div>
+        <div class="statstrip">
+          <div class="statcell"><div class="sc-top"><span class="dot blue"></span><span class="sc-label">NEW</span></div><div class="sc-value">41</div><div class="sc-sub">this week</div></div>
+          <div class="statcell"><div class="sc-top"><span class="dot amber"></span><span class="sc-label">QUALIFIED</span></div><div class="sc-value">23</div><div class="sc-sub">Ella-vetted</div></div>
+          <div class="statcell"><div class="sc-top"><span class="dot purple"></span><span class="sc-label">PROPOSAL</span></div><div class="sc-value">9</div><div class="sc-sub">awaiting decision</div></div>
+          <div class="statcell"><div class="sc-top"><span class="dot green"></span><span class="sc-label">WON</span></div><div class="sc-value">6</div><div class="sc-sub">$128,400</div></div>
+        </div>
+        <div class="card tablecard">
+          <div class="card-head"><div class="card-title">Open pipeline</div><span class="card-kicker">SORTED BY VALUE</span></div>
+          <table class="dtable">
+            <thead><tr><th>Lead</th><th>Source</th><th>Stage</th><th class="num">Value</th><th class="num">Last touch</th></tr></thead>
+            <tbody>
+              <tr><td><div class="cellname"><span class="avatar a32 amber">M</span><div class="nm">Marcus R.</div></div></td><td class="t-muted">Inbound call</td><td><span class="pill purple">Proposal</span></td><td class="num">$42,000</td><td class="num">Today</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 purple">D</span><div class="nm">Davis Vaughn</div></div></td><td class="t-muted">Referral</td><td><span class="pill purple">Proposal</span></td><td class="num">$31,500</td><td class="num">Wed</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 blue">S</span><div class="nm">Sage O.</div></div></td><td class="t-muted">Website form</td><td><span class="pill amber">Qualified</span></td><td class="num">$18,200</td><td class="num">Yesterday</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 green">N</span><div class="nm">Nate Tildwell</div></div></td><td class="t-muted">Inbound call</td><td><span class="pill blue">New</span></td><td class="num">$12,800</td><td class="num">Wed</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 rose">P</span><div class="nm">Priya N.</div></div></td><td class="t-muted">Google Ads</td><td><span class="pill amber">Qualified</span></td><td class="num">$9,600</td><td class="num">Today</td></tr>
+              <tr><td><div class="cellname"><span class="avatar a32 olive">W</span><div class="nm">Westview lead</div></div></td><td class="t-muted">Referral</td><td><span class="pill blue">New</span></td><td class="num">$7,400</td><td class="num">Today</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ════════ VIEW: Appointments ════════ -->
+      <section class="view" id="view-appts" hidden>
+        <div class="pagehead">
+          <div>
+            <div class="kicker">REVENUE · APPOINTMENTS</div>
+            <h1 class="page-h1">Appointments</h1>
+            <p class="page-sub">Everything Ella booked, confirmed, and rescheduled — straight into your calendar.</p>
+          </div>
+          <div class="pagehead-acts">
+            <button class="btn btn-outline">Calendar view</button>
+            <button class="btn btn-dark">+ New appointment</button>
+          </div>
+        </div>
+        <div class="card comingup" style="max-width:680px;">
+          <div class="card-head"><div class="card-title">Schedule</div><span class="card-kicker">NEXT 7 DAYS</span></div>
+          <div class="cu-day">TODAY</div>
+          <div class="cu-row"><span class="avatar a32 rose">J</span><div class="cu-meta"><div class="cu-name">Julie Choi</div><div class="cu-ctx">Contract signing · in person</div></div><span class="cu-time">11:00 AM</span></div>
+          <div class="cu-row"><span class="avatar a32 blue">N</span><div class="cu-meta"><div class="cu-name">Nate Tildwell</div><div class="cu-ctx">Pricing call · phone</div></div><span class="cu-time">11:19 AM</span></div>
+          <div class="cu-row"><span class="avatar a32 amber">M</span><div class="cu-meta"><div class="cu-name">Marcus R.</div><div class="cu-ctx">Closing review · Zoom</div></div><span class="cu-time">3:30 PM</span></div>
+          <div class="cu-day">TOMORROW</div>
+          <div class="cu-row"><span class="avatar a32 olive">W</span><div class="cu-meta"><div class="cu-name">Westview walkthrough</div><div class="cu-ctx">Appointment · on-site</div></div><span class="cu-time">9:00 AM</span></div>
+          <div class="cu-row"><span class="avatar a32 amber">D</span><div class="cu-meta"><div class="cu-name">Davis Vaughn</div><div class="cu-ctx">Proposal follow-up · phone</div></div><span class="cu-time">2:00 PM</span></div>
+          <div class="cu-day">THU, JUN 26</div>
+          <div class="cu-row"><span class="avatar a32 purple">P</span><div class="cu-meta"><div class="cu-name">Priya N.</div><div class="cu-ctx">Demo · Google Meet</div></div><span class="cu-time">10:30 AM</span></div>
+        </div>
+      </section>
+
+      <!-- ════════ VIEW: Review ════════ -->
+      <section class="view" id="view-review" hidden>
+        <div class="pagehead">
+          <div>
+            <div class="kicker">OVERSIGHT · REVIEW</div>
+            <h1 class="page-h1">Review</h1>
+            <p class="page-sub">Conversations Ella flagged for a human — approve, listen, or reassign.</p>
+          </div>
+          <div class="pagehead-acts">
+            <button class="btn btn-dark">✦ Resolve all with Ella</button>
+          </div>
+        </div>
+        <div class="cardgrid">
+          <div class="review-card">
+            <div class="rv-head"><span class="avatar a38 amber">M</span><div><div class="rv-name">Marcus R.</div><div class="rv-sub">Handoff · today 4:42 PM</div></div><span class="pill red" style="margin-left:auto;"><span class="pilldot"></span>Action</span></div>
+            <div class="rv-body">Ella confirmed Marcus is ready to sign and recalled his deposit on file. Needs you to send the Westview contract.</div>
+            <div class="rv-acts"><button class="btn btn-dark tiny">Send contract</button><button class="btn ghost-blue tiny">Listen ▸</button></div>
+          </div>
+          <div class="review-card">
+            <div class="rv-head"><span class="avatar a38 rose">L</span><div><div class="rv-name">Lena Q.</div><div class="rv-sub">Handoff · today 11:02 AM</div></div><span class="pill amber" style="margin-left:auto;"><span class="pilldot"></span>Review</span></div>
+            <div class="rv-body">Caller asked for a human while no one was online. Ella took a message and promised a callback within the hour.</div>
+            <div class="rv-acts"><button class="btn btn-dark tiny">Call back</button><button class="btn ghost-blue tiny">Listen ▸</button></div>
+          </div>
+          <div class="review-card">
+            <div class="rv-head"><span class="avatar a38 gray">?</span><div><div class="rv-name">Unknown caller</div><div class="rv-sub">Handoff · yest 9:14 AM</div></div><span class="pill amber" style="margin-left:auto;"><span class="pilldot"></span>Review</span></div>
+            <div class="rv-body">New number with no contact match. Ella captured the name and reason; confirm whether to create a contact.</div>
+            <div class="rv-acts"><button class="btn btn-dark tiny">Create contact</button><button class="btn ghost-blue tiny">Listen ▸</button></div>
+          </div>
+          <div class="review-card">
+            <div class="rv-head"><span class="avatar a38 blue">R</span><div><div class="rv-name">Rhys A.</div><div class="rv-sub">Flagged · yest 3:48 PM</div></div><span class="pill red" style="margin-left:auto;"><span class="pilldot"></span>Action</span></div>
+            <div class="rv-body">Payment on file failed during the call. Ella flagged it and held off on confirming the renewal.</div>
+            <div class="rv-acts"><button class="btn btn-dark tiny">Update billing</button><button class="btn ghost-blue tiny">Listen ▸</button></div>
+          </div>
+        </div>
+      </section>
 
       </div>
 
@@ -332,13 +615,18 @@
 </div>
 
 <script>
-  // Sidebar active state (visual)
+  // Sidebar: set active item + switch the visible view
+  var views = Array.prototype.slice.call(document.querySelectorAll('.view'));
+  var main = document.querySelector('.main');
   document.getElementById('sideNav').addEventListener('click', function (e) {
     var item = e.target.closest('.side-item');
     if (!item) return;
     e.preventDefault();
     this.querySelectorAll('.side-item.on').forEach(function (el) { el.classList.remove('on'); });
     item.classList.add('on');
+    var id = item.getAttribute('data-id');
+    views.forEach(function (v) { v.hidden = (v.id !== 'view-' + id); });
+    if (main) main.scrollTop = 0;
   });
 
   // "Needs a look" tab filter

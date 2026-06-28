@@ -234,7 +234,87 @@ a { text-decoration: none; color: inherit; }
 .ask-input { display: flex; align-items: center; gap: 8px; border: 1px solid rgba(20, 30, 45, 0.12); border-radius: 10px; padding: 9px 11px; color: var(--faint); font-size: 13px; }
 .ask-send { margin-left: auto; color: var(--accent); }
 
+/* ───────── Views (sidebar-switched screens) ───────── */
+.view[hidden] { display: none; }
+
+/* Stat strip (compact KPI row reused across views) */
+.statstrip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 18px; }
+.statcell { background: var(--surface); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px 18px; box-shadow: var(--stat-shadow); }
+.statcell .sc-top { display: flex; align-items: center; gap: 7px; }
+.statcell .sc-label { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.12em; color: #828c9a; }
+.statcell .sc-value { font-size: 26px; font-weight: 700; color: var(--heading); line-height: 1; margin: 10px 0 4px; letter-spacing: -0.01em; }
+.statcell .sc-sub { font-size: 12.5px; color: var(--faint); }
+
+/* Generic data table inside a card */
+.tablecard { padding: 8px; overflow: hidden; }
+.tablecard .card-head { padding: 14px 16px 12px; }
+.dtable { width: 100%; border-collapse: collapse; }
+.dtable th { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mono-faint); text-align: left; font-weight: 400; padding: 6px 16px; border-bottom: 1px solid var(--hairline); }
+.dtable td { padding: 12px 16px; border-bottom: 1px solid var(--hairline-soft); font-size: 13.5px; color: var(--body); vertical-align: middle; }
+.dtable tbody tr { transition: background 120ms ease; }
+.dtable tbody tr:hover td { background: var(--row-hover); }
+.dtable tbody tr:last-child td { border-bottom: none; }
+.dtable td.num, .dtable th.num { text-align: right; font-family: var(--f-mono); }
+.cellname { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.cellname .nm { font-size: 14px; font-weight: 600; color: var(--body); white-space: nowrap; }
+.cellname .code { font-family: var(--f-mono); font-size: 10.5px; color: var(--mono-faint-2); }
+.t-mono { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.t-muted { color: #4d5564; }
+.rowact { font-size: 13px; font-weight: 600; color: var(--accent); cursor: pointer; white-space: nowrap; }
+.rowact:hover { text-decoration: underline; }
+
+/* Pills & tags */
+.pill { display: inline-flex; align-items: center; gap: 5px; font-family: var(--f-sans); font-size: 11.5px; font-weight: 600; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+.pill.green { background: rgba(63, 157, 110, 0.12); color: #2f7d57; }
+.pill.red { background: rgba(220, 84, 64, 0.12); color: #b8412e; }
+.pill.amber { background: rgba(224, 153, 42, 0.15); color: #9a6a1e; }
+.pill.blue { background: rgba(47, 109, 240, 0.1); color: #2f6df0; }
+.pill.gray { background: rgba(20, 30, 45, 0.06); color: var(--muted); }
+.pill.purple { background: rgba(106, 79, 160, 0.13); color: #5a3f8a; }
+.pilldot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* Memory cards */
+.mem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mem-card { background: var(--surface); border: 1px solid var(--card-border); border-radius: 16px; box-shadow: var(--card-shadow); padding: 18px 20px; }
+.mem-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.mem-card-head .mc-name { font-size: 15px; font-weight: 600; color: var(--body); }
+.mem-card-head .mc-sub { font-size: 12px; color: var(--faint); }
+.mem-count { margin-left: auto; font-family: var(--f-mono); font-size: 10px; color: var(--accent); background: rgba(47, 109, 240, 0.09); border-radius: 5px; padding: 2px 7px; }
+.mem-list { display: flex; flex-direction: column; gap: 9px; }
+.mem-item { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #4d5564; line-height: 1.45; }
+.mem-item .mi-dot { margin-top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-icon); flex-shrink: 0; }
+.mem-item .mi-date { font-family: var(--f-mono); font-size: 10px; color: var(--mono-faint-2); margin-left: auto; white-space: nowrap; padding-left: 8px; }
+
+/* Routing rows (IVR / hours) */
+.route-card { background: var(--surface); border: 1px solid var(--card-border); border-radius: 16px; box-shadow: var(--card-shadow); padding: 8px; }
+.route-row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-bottom: 1px solid var(--hairline-soft); }
+.route-row:last-child { border-bottom: none; }
+.route-key { flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px; background: #eef2f8; color: var(--heading); font-family: var(--f-mono); font-weight: 700; font-size: 14px; display: grid; place-items: center; }
+.route-label { font-size: 14px; font-weight: 600; color: var(--body); }
+.route-arrow { margin-left: auto; color: var(--mono-faint-2); }
+.route-dest { font-size: 13px; font-weight: 600; color: var(--accent); flex-shrink: 0; }
+.route-row.muted .route-key { background: rgba(20,30,45,0.05); color: var(--muted); }
+.route-row.muted .route-dest { color: var(--muted); }
+
+/* Section subtitle inside a view */
+.view-section-label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.12em; color: var(--mono-faint); text-transform: uppercase; margin: 4px 0 12px; }
+
+/* Two-up card grid (appointments / review) */
+.cardgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.review-card { background: var(--surface); border: 1px solid var(--card-border); border-radius: 16px; box-shadow: var(--card-shadow); padding: 18px 20px; }
+.review-card .rv-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.review-card .rv-name { font-size: 15px; font-weight: 600; color: var(--body); }
+.review-card .rv-sub { font-size: 12px; color: var(--faint); }
+.review-card .rv-body { font-size: 13.5px; color: #4d5564; line-height: 1.5; margin-bottom: 14px; }
+.review-card .rv-acts { display: flex; gap: 8px; }
+.btn.tiny { padding: 8px 13px; font-size: 12.5px; border-radius: 8px; }
+.btn.ghost-blue { background: rgba(47,109,240,0.08); color: var(--accent); }
+.btn.ghost-blue:hover { background: rgba(47,109,240,0.14); }
+
 /* ───────── Responsive ───────── */
+@media (max-width: 1080px) {
+  .mem-grid, .cardgrid, .statstrip { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 1080px) {
   .kpi-row { grid-template-columns: 1fr; }
   .twocol { grid-template-columns: 1fr; }
