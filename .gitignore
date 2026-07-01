@@ -8,3 +8,5 @@ Thumbs.db
 
 # Local dev server cache (npx serve)
 .serve/
+
+.vercel
