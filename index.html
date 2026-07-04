@@ -1,450 +1,509 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ella — The AI-native system that captures every customer conversation</title>
-<meta name="description" content="Ella is an AI-native system that records, transcribes, and remembers every customer conversation — phone, Zoom, Microsoft Teams, Google Meet, and in person. Never miss a conversation again. An Endurance Labs product." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<script>document.documentElement.className='js';</script>
-<style>
-  :root{
-    --ink:#121829; --ink-950:#0A0F1C; --ink-900:#171E33;
-    --bone:#F4F2ED; --bone-100:#EAE7DF;
-    --signal:#C7A76C; --signal-deep:#8a6d34; --rust:#8F3A2E;
-    --steel-200:#D9D9D3; --steel-300:#B8B8B0; --steel-400:#8E8E85; --steel-500:#6B6B62;
-    --steel-600:#4D4D47; --steel-700:#343430; --steel-800:#23231F;
-    --font-display:'Instrument Serif','Times New Roman',Georgia,serif;
-    --font-sans:'Figtree',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
-    --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
-    --container-max:1280px; --container-pad:48px;
-    --ease:cubic-bezier(0.4,0,0.2,1);
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--font-sans);font-size:16px;line-height:1.6;
-    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-feature-settings:"ss01","cv11";overflow-x:hidden}
-  a{color:inherit;text-decoration:none}
-  h1,h2,h3,h4,p{margin:0}
-  .wrap{max-width:var(--container-max);margin:0 auto}
-  .sec{padding:clamp(80px,9vw,128px) var(--container-pad)}
-  .sec-sm{padding:clamp(64px,7vw,104px) var(--container-pad)}
-  .light{background:var(--bone);color:var(--ink)}
-  .deep{background:var(--ink-950)}
-  .brd{border-bottom:1px solid var(--steel-800)}
-  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
-  .disp{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;line-height:1.03}
-  .it{font-style:italic}
-  .lead{font-weight:300;line-height:1.55}
-  .center{text-align:center} .mid{margin-left:auto;margin-right:auto}
-  .btn-primary{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-sans);font-weight:600;color:var(--ink);
-    background:var(--bone);border:1px solid var(--bone);border-radius:2px;padding:15px 24px;font-size:15px;
-    transition:background .2s var(--ease),border-color .2s var(--ease)}
-  .btn-primary:hover{background:var(--signal);border-color:var(--signal)}
-  .btn-outline{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-sans);font-weight:500;color:var(--bone);
-    background:transparent;border:1px solid var(--steel-700);border-radius:2px;padding:15px 24px;font-size:15px;transition:border-color .2s var(--ease)}
-  .btn-outline:hover{border-color:var(--bone)}
-  .light .btn-outline{color:var(--ink);border-color:var(--steel-300)} .light .btn-outline:hover{border-color:var(--ink)}
-  .btn-ink{background:var(--ink);color:var(--bone);border:1px solid var(--ink)} .btn-ink:hover{background:#000;border-color:#000}
-  .full{width:100%;justify-content:center}
-
-  header.nav{position:fixed;top:0;left:0;right:0;z-index:8000;border-bottom:1px solid transparent;
-    transition:background .2s var(--ease),border-color .2s var(--ease),backdrop-filter .2s var(--ease)}
-  header.nav.scrolled{background:rgba(18,24,41,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom-color:var(--steel-800)}
-  .nav-inner{max-width:var(--container-max);margin:0 auto;padding:18px var(--container-pad);display:flex;align-items:center;justify-content:space-between;gap:20px}
-  .brand{display:flex;align-items:center;gap:12px}
-  .brand .mk{width:30px;height:30px;border-radius:2px;display:grid;place-items:center;background:var(--signal);color:var(--ink)}
-  .brand .nm{font-family:var(--font-display);font-size:22px;letter-spacing:-.01em}
-  .brand .sub{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel-400)}
-  .brand .dv{width:1px;height:18px;background:var(--steel-700)}
-  .nav-links{display:flex;align-items:center;gap:28px}
-  .nav-links a.lk{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel-300)}
-  .nav-links a.lk:hover{color:var(--bone)}
-  @media(max-width:940px){.nav-links a.lk{display:none} .brand .sub{display:none}}
-
-  .js [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-  [data-reveal].visible{opacity:1;transform:none}
-
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
-  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px}
-  .hair-d{background:var(--steel-800);border:1px solid var(--steel-800)}
-  .hair-l{background:var(--steel-200);border:1px solid var(--steel-200)}
-  .card-d{background:var(--ink-950);padding:34px 30px;transition:background .2s var(--ease)}
-  .card-d:hover{background:var(--ink-900)}
-  .card-l{background:#fff;padding:32px 28px}
-  .kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel-500);margin-bottom:12px}
-  .ic{color:var(--signal);margin-bottom:20px} .ic svg{width:26px;height:26px}
-
-  .flow{stroke-dasharray:4 8}
-  .stat-bar{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--steel-800)}
-  .stat-bar .si{padding:16px 12px 0} .stat-bar .si+.si{border-left:1px solid var(--steel-800)}
-  .stat-bar .sn{font-family:var(--font-display);font-size:40px;line-height:1;color:var(--bone)}
-  .stat-bar .sl{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel-400);margin-top:8px}
-
-  @media(max-width:900px){
-    .g-hero{grid-template-columns:1fr !important;gap:48px !important}
-    .grid-3,.grid-4{grid-template-columns:1fr !important}
-    .g-2{grid-template-columns:1fr !important}
-    .g-split{grid-template-columns:1fr !important;gap:40px !important}
-    .price-grid{grid-template-columns:1fr !important}
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remi — The AI that remembers every customer conversation</title>
+  <meta name="description" content="Remi is an AI-native conversation-intelligence system that captures and remembers every customer conversation — phone calls, Zoom, Microsoft Teams, Google Meet, and in-person meetings. Total recall. Never miss a conversation. An Endurance Labs product." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="nav" id="nav">
-  <div class="nav-inner">
+  <a class="skip-link" href="#top">Skip to content</a>
+
+  <!-- ───────────────────────── Top bar ───────────────────────── -->
+  <header class="topbar">
     <a class="brand" href="#top">
-      <span class="mk"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></span>
-      <span class="nm">Ella</span>
-      <span class="dv"></span>
-      <span class="sub">AI Conversation Intelligence</span>
+      <span class="brand-mark" aria-hidden="true">r</span>
+      <span class="brand-name">Remi</span>
+      <span class="brand-sub">AI Conversation Intelligence</span>
     </a>
-    <nav class="nav-links">
-      <a class="lk" href="#channels">Channels</a>
-      <a class="lk" href="#how">Why Ella</a>
-      <a class="lk" href="#pricing">Pricing</a>
-      <a class="lk" href="console.html">Console</a>
-      <a class="btn-primary" href="#pricing" style="font-size:13px;padding:9px 16px;">Start now<span style="font-family:var(--font-mono);">&#8599;</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#demo">Demo</a>
+      <a href="#channels">Channels</a>
+      <a href="#how">Why Remi</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
     </nav>
-  </div>
-</header>
-
-<!-- HERO -->
-<section id="top" class="sec brd" style="position:relative;padding-top:156px;overflow:hidden;">
-  <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--steel-800) 1px,transparent 1px);background-size:100% 116px;opacity:.3;"></div>
-  <div class="wrap g-hero" style="position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center;">
-    <div data-reveal>
-      <div class="eyebrow" style="display:inline-flex;align-items:center;gap:10px;letter-spacing:.14em;color:var(--signal);margin-bottom:28px;">
-        <span style="width:7px;height:7px;border-radius:999px;background:var(--signal);"></span>Meet Ella &middot; AI-native conversation intelligence
-      </div>
-      <h1 class="disp" style="font-size:clamp(44px,5.6vw,90px);line-height:1.0;color:var(--bone);">Ella captures <span class="it" style="color:var(--signal);">every customer conversation</span> — phone, video, and in person.</h1>
-      <p style="font-size:20px;line-height:1.5;font-weight:300;color:var(--steel-300);max-width:580px;margin:32px 0 40px;">Ella is an AI-native system that records, transcribes, and remembers every conversation across phone calls, Zoom, Microsoft Teams, and Google Meet, and in-person meetings — so your team never misses a detail, a follow-up, or a deal.</p>
-      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-        <a class="btn-primary" href="#demo">Watch the demo<span style="font-family:var(--font-mono);">&#8599;</span></a>
-        <a class="btn-outline" href="#channels">See every channel</a>
-      </div>
+    <div class="right">
+      <a href="console.html" class="btn ghost">Open console →</a>
+      <a href="#pricing" class="btn primary">Start now</a>
     </div>
+  </header>
 
-    <div style="position:relative;display:flex;flex-direction:column;gap:26px;">
-      <div style="position:relative;width:100%;aspect-ratio:1/1;max-width:420px;margin-left:auto;">
-        <svg viewBox="0 0 400 400" width="100%" height="100%">
-          <defs><radialGradient id="ecore" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C7A76C" stop-opacity="0.4"/><stop offset="100%" stop-color="#C7A76C" stop-opacity="0"/></radialGradient></defs>
-          <circle cx="200" cy="200" r="188" fill="none" stroke="#23231F"/>
-          <circle cx="200" cy="200" r="140" fill="none" stroke="#23231F"/>
-          <circle cx="200" cy="200" r="92" fill="none" stroke="#343430" class="flow"><animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="30s" repeatCount="indefinite"/></circle>
-          <g><animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 200 200" to="360 200 200" dur="52s" repeatCount="indefinite"/>
-            <g stroke="#2a2a26"><line x1="200" y1="20" x2="200" y2="200"/><line x1="327" y1="73" x2="200" y2="200"/><line x1="380" y1="200" x2="200" y2="200"/><line x1="327" y1="327" x2="200" y2="200"/><line x1="200" y1="380" x2="200" y2="200"/><line x1="73" y1="327" x2="200" y2="200"/><line x1="20" y1="200" x2="200" y2="200"/><line x1="73" y1="73" x2="200" y2="200"/></g>
-            <g fill="#C7A76C">
-              <circle r="3"><animateMotion dur="3s" repeatCount="indefinite" path="M200,20 L200,200" begin="0s"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" repeatCount="indefinite"/></circle>
-              <circle r="3"><animateMotion dur="3s" repeatCount="indefinite" path="M327,73 L200,200" begin="0.4s"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="0.4s" repeatCount="indefinite"/></circle>
-              <circle r="3"><animateMotion dur="3s" repeatCount="indefinite" path="M380,200 L200,200" begin="0.8s"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="0.8s" repeatCount="indefinite"/></circle>
-              <circle r="3"><animateMotion dur="3s" repeatCount="indefinite" path="M327,327 L200,200" begin="1.2s"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="1.2s" repeatCount="indefinite"/></circle>
-              <circle r="3"><animateMotion dur="3s" repeatCount="indefinite" path="M200,380 L200,200" begin="1.6s"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="1.6s" repeatCount="indefinite"/></circle>
-              <circle r="3"><animateMotion dur="3s" repeatCount="indefinite" path="M73,327 L200,200" begin="2s"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="2s" repeatCount="indefinite"/></circle>
-              <circle r="3"><animateMotion dur="3s" repeatCount="indefinite" path="M20,200 L200,200" begin="2.4s"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="2.4s" repeatCount="indefinite"/></circle>
-              <circle r="3"><animateMotion dur="3s" repeatCount="indefinite" path="M73,73 L200,200" begin="2.8s"/><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="2.8s" repeatCount="indefinite"/></circle>
-            </g>
-            <g fill="#171E33" stroke="#343430"><circle cx="200" cy="20" r="6"/><circle cx="327" cy="73" r="6"/><circle cx="380" cy="200" r="6"/><circle cx="327" cy="327" r="6"/><circle cx="200" cy="380" r="6"/><circle cx="73" cy="327" r="6"/><circle cx="20" cy="200" r="6"/><circle cx="73" cy="73" r="6"/></g>
-          </g>
-          <circle cx="200" cy="200" r="120" fill="url(#ecore)"/>
-          <circle cx="200" cy="200" r="54" fill="#171E33" stroke="#C7A76C" stroke-width="1.5"/>
-          <text x="200" y="196" fill="#F4F2ED" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="15" letter-spacing="3" text-anchor="middle">ELLA</text>
-          <text x="200" y="214" fill="#C7A76C" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="10" letter-spacing="2.5" text-anchor="middle">MEMORY</text>
-          <circle cx="200" cy="200" r="60" fill="none" stroke="#C7A76C" stroke-width="1"><animate attributeName="r" values="54;80" dur="2.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.8;0" dur="2.8s" repeatCount="indefinite"/></circle>
-        </svg>
-      </div>
-      <div class="stat-bar">
-        <div class="si"><div class="sn">100%</div><div class="sl">Recall</div></div>
-        <div class="si"><div class="sn">24/7</div><div class="sl">Always on</div></div>
-        <div class="si"><div class="sn">5+</div><div class="sl">Channels</div></div>
-      </div>
-    </div>
-  </div>
-</section>
+  <main id="top">
 
-<!-- 01 · DEMO -->
-<section id="demo" class="sec light">
-  <div class="wrap">
-    <div data-reveal class="center mid" style="max-width:720px;margin-bottom:44px;">
-      <div class="eyebrow" style="color:var(--steel-500);margin-bottom:20px;">01 &mdash; See Ella in action</div>
-      <h2 class="disp" style="font-size:clamp(34px,4.2vw,60px);">Imagine your after-hours line sounded <span class="it" style="color:var(--signal-deep);">like this.</span></h2>
-      <p class="lead" style="font-size:19px;color:var(--steel-600);margin-top:20px;">A real conversation, captured and remembered end to end. Watch Ella answer, recall, and move the deal forward.</p>
-    </div>
-
-    <div data-reveal class="g-2" style="display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:stretch;">
-      <!-- recall card -->
-      <div style="background:var(--ink);border:1px solid var(--steel-800);border-radius:2px;overflow:hidden;display:flex;flex-direction:column;">
-        <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--steel-800);font-family:var(--font-mono);font-size:12px;color:var(--steel-400);">
-          <span style="width:8px;height:8px;border-radius:999px;background:var(--signal);"></span>call &middot; ella &nbsp;<span style="color:var(--steel-600);">0:42</span>
+    <!-- ───────────────────────── Hero ───────────────────────── -->
+    <section class="hero">
+      <div class="hero-inner reveal">
+        <span class="eyebrow accent-eyebrow"><span class="dot live" aria-hidden="true"></span> Meet Remi · AI-native conversation intelligence</span>
+        <h1>Remi remembers <span class="grad">every customer conversation</span> — phone, video, and in person.</h1>
+        <p class="lede">
+          Remi is an AI-native system that captures, transcribes, and remembers every
+          conversation across phone calls, Zoom, Microsoft Teams, Google Meet, and
+          in-person meetings — then acts on what it hears. Total recall: no missed detail,
+          no forgotten follow-up, no lost deal.
+        </p>
+        <div class="hero-cta">
+          <a href="#demo" class="btn primary lg">Watch the demo</a>
+          <a href="#channels" class="btn ghost lg">See every channel</a>
         </div>
-        <div style="padding:20px 18px;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.5;">
-          <div style="align-self:flex-start;max-width:88%;background:var(--ink-900);border:1px solid var(--steel-800);border-radius:2px;padding:12px 14px;color:var(--bone);">Welcome back, Marcus — last time we spoke you were closing on the Westview unit. How did the walkthrough go?</div>
-          <div style="align-self:flex-end;max-width:88%;background:var(--signal);color:var(--ink);border-radius:2px;padding:12px 14px;font-weight:500;">It went great. I'm ready to move forward.</div>
-          <div style="align-self:flex-start;max-width:88%;background:var(--ink-900);border:1px solid var(--steel-800);border-radius:2px;padding:12px 14px;color:var(--bone);">Wonderful. I already have your deposit details on file from June — want me to send the contract and book your signing now?</div>
-          <div style="margin-top:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--signal);display:flex;align-items:center;gap:8px;"><span style="width:6px;height:6px;border-radius:999px;background:var(--signal);"></span>Recalled: 3 prior conversations</div>
+        <div class="hero-meta">
+          <span class="dot live" aria-hidden="true"></span> Capturing now — Remi never misses a conversation
         </div>
       </div>
-      <!-- video -->
-      <div style="border:1px solid var(--steel-200);border-radius:2px;overflow:hidden;background:#000;">
-        <video controls playsinline preload="metadata" style="width:100%;height:100%;display:block;object-fit:cover;"
+
+      <!-- Call card mock -->
+      <div class="hero-visual reveal d1" aria-hidden="true">
+        <div class="callcard">
+          <div class="callcard-head">
+            <span class="avatar">RE</span>
+            <div class="callcard-meta">
+              <div class="cc-name">Remi</div>
+              <div class="cc-status"><span class="dot live"></span> On a call · 0:42</div>
+            </div>
+            <span class="wave">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </span>
+          </div>
+          <div class="bubble them">Hi, this is Remi. Welcome back, Marcus — last time we spoke you were closing on the Westview unit. How did the walkthrough go?</div>
+          <div class="bubble me">It went great. I'm ready to move forward.</div>
+          <div class="bubble them">Wonderful. I already have your deposit details on file from June — want me to send the contract and book your signing now?</div>
+          <div class="memchip"><span class="dot"></span> Recalled: 3 prior conversations</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────── Works-with strip ───────────────────── -->
+    <section class="works-with" aria-label="Channels Remi works with">
+      <div class="ww-inner reveal">
+        <span class="ww-label">Works everywhere you talk</span>
+        <ul class="ww-chips">
+          <li class="ww-chip"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>Phone</li>
+          <li class="ww-chip"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg>Zoom</li>
+          <li class="ww-chip"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Microsoft Teams</li>
+          <li class="ww-chip"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="12" x="2" y="6" rx="2"/><path d="m22 8-6 4 6 4V8Z"/><path d="M6 10h4"/></svg>Google Meet</li>
+          <li class="ww-chip"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>In-person</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ───────────────────── Demo video ───────────────────── -->
+    <section class="band tight" id="demo">
+      <div class="band-head center reveal">
+        <span class="eyebrow">See Remi in action</span>
+        <h2>Imagine your after-hours line sounded like this.</h2>
+        <p class="sub">A real conversation, captured and remembered end to end. Watch Remi answer, recall, and move the deal forward.</p>
+      </div>
+      <div class="video-frame reveal d1">
+        <video
+          controls
+          playsinline
+          preload="metadata"
           poster="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://storage.googleapis.com/msgsndr/5wYs2wGNfXtu6BvtKC8y/media/68beb21700c13321b82ae9bc.png">
           <source src="https://storage.googleapis.com/msgsndr/5wYs2wGNfXtu6BvtKC8y/media/68c5db2ce5b5d8daf194c86f.mp4" type="video/mp4" />
+          Your browser doesn't support embedded video.
           <a href="https://storage.googleapis.com/msgsndr/5wYs2wGNfXtu6BvtKC8y/media/68c5db2ce5b5d8daf194c86f.mp4">Watch the demo</a>.
         </video>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- 02 · CHANNELS -->
-<section id="channels" class="sec brd">
-  <div class="wrap">
-    <div data-reveal style="max-width:820px;margin-bottom:48px;">
-      <div class="eyebrow" style="color:var(--signal);margin-bottom:20px;">02 &mdash; Every channel. Every conversation.</div>
-      <h2 class="disp" style="font-size:clamp(38px,4.6vw,68px);color:var(--bone);">If a customer talks to you, Ella is <span class="it" style="color:var(--signal);">already listening.</span></h2>
-      <p style="font-size:19px;line-height:1.55;color:var(--steel-300);font-weight:300;margin-top:24px;">Ella is AI-native — it plugs into every place your conversations happen and captures all of them automatically. No note-taking, no missed follow-ups, no "what did we say last time?"</p>
-    </div>
-
-    <!-- labeled hub-and-spoke: channels -> ELLA MEMORY -->
-    <div data-reveal style="border:1px solid var(--steel-800);border-radius:2px;background:linear-gradient(180deg,rgba(199,167,108,.03),transparent);padding:20px;margin-bottom:24px;">
-      <svg viewBox="0 0 900 520" width="100%" height="100%">
-        <defs><radialGradient id="hubg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C7A76C" stop-opacity="0.2"/><stop offset="100%" stop-color="#C7A76C" stop-opacity="0"/></radialGradient></defs>
-        <g stroke="#2e2e2a"><line x1="450" y1="70" x2="450" y2="260"/><line x1="775" y1="180" x2="450" y2="260"/><line x1="660" y1="450" x2="450" y2="260"/><line x1="240" y1="450" x2="450" y2="260"/><line x1="125" y1="180" x2="450" y2="260"/></g>
-        <g fill="#C7A76C">
-          <circle r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="M450,70 L450,260" begin="0s"/><animate attributeName="opacity" values="0;1;1;0" dur="3.2s" repeatCount="indefinite"/></circle>
-          <circle r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="M775,180 L450,260" begin="0.5s"/><animate attributeName="opacity" values="0;1;1;0" dur="3.2s" begin="0.5s" repeatCount="indefinite"/></circle>
-          <circle r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="M660,450 L450,260" begin="1s"/><animate attributeName="opacity" values="0;1;1;0" dur="3.2s" begin="1s" repeatCount="indefinite"/></circle>
-          <circle r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="M240,450 L450,260" begin="1.5s"/><animate attributeName="opacity" values="0;1;1;0" dur="3.2s" begin="1.5s" repeatCount="indefinite"/></circle>
-          <circle r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="M125,180 L450,260" begin="2s"/><animate attributeName="opacity" values="0;1;1;0" dur="3.2s" begin="2s" repeatCount="indefinite"/></circle>
-        </g>
-        <g font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" letter-spacing="0.5" fill="#B8B8B0" text-anchor="middle">
-          <g><circle cx="450" cy="70" r="5" fill="#171E33" stroke="#3a3a35"/><text x="450" y="46">PHONE</text></g>
-          <g><circle cx="775" cy="180" r="5" fill="#171E33" stroke="#3a3a35"/><text x="775" y="158">ZOOM</text></g>
-          <g><circle cx="660" cy="450" r="5" fill="#171E33" stroke="#3a3a35"/><text x="660" y="476">MICROSOFT TEAMS</text></g>
-          <g><circle cx="240" cy="450" r="5" fill="#171E33" stroke="#3a3a35"/><text x="240" y="476">GOOGLE MEET</text></g>
-          <g><circle cx="125" cy="180" r="5" fill="#171E33" stroke="#3a3a35"/><text x="125" y="158">IN-PERSON</text></g>
-        </g>
-        <circle cx="450" cy="260" r="140" fill="url(#hubg)"/>
-        <circle cx="450" cy="260" r="98" fill="none" stroke="#343430" stroke-dasharray="3 8"><animateTransform attributeName="transform" type="rotate" from="0 450 260" to="360 450 260" dur="34s" repeatCount="indefinite"/></circle>
-        <circle cx="450" cy="260" r="72" fill="#121829" stroke="#C7A76C" stroke-width="1.5"/>
-        <text x="450" y="254" fill="#F4F2ED" font-family="var(--font-display)" font-size="26" text-anchor="middle">Ella</text>
-        <text x="450" y="278" fill="#C7A76C" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" letter-spacing="3" text-anchor="middle">MEMORY</text>
-      </svg>
-    </div>
-
-    <div data-reveal class="grid-4 hair-d">
-      <div class="card-d"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div><h3 style="font-family:var(--font-sans);font-size:19px;font-weight:600;margin-bottom:10px;color:var(--bone);">Phone calls</h3><p style="font-size:14.5px;line-height:1.55;color:var(--steel-400);">Inbound and outbound. Ella answers, talks, and logs every call — with full recall of past conversations.</p></div>
-      <div class="card-d"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg></div><h3 style="font-family:var(--font-sans);font-size:19px;font-weight:600;margin-bottom:10px;color:var(--bone);">Video meetings</h3><p style="font-size:14.5px;line-height:1.55;color:var(--steel-400);">Joins your <strong style="color:var(--steel-200);font-weight:600;">Zoom</strong>, <strong style="color:var(--steel-200);font-weight:600;">Microsoft Teams</strong>, and <strong style="color:var(--steel-200);font-weight:600;">Google Meet</strong> calls to record, transcribe, and summarize automatically.</p></div>
-      <div class="card-d"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 style="font-family:var(--font-sans);font-size:19px;font-weight:600;margin-bottom:10px;color:var(--bone);">In-person meetings</h3><p style="font-size:14.5px;line-height:1.55;color:var(--steel-400);">Capture face-to-face conversations on any device. Ella transcribes the room and files it with the right customer.</p></div>
-      <div class="card-d"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></div><h3 style="font-family:var(--font-sans);font-size:19px;font-weight:600;margin-bottom:10px;color:var(--bone);">One memory, total recall</h3><p style="font-size:14.5px;line-height:1.55;color:var(--steel-400);">Every channel flows into a single AI memory per customer — so Ella, and your team, never miss a conversation.</p></div>
-    </div>
-    <div data-reveal style="margin-top:24px;display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--steel-400);border-top:1px solid var(--steel-800);padding-top:20px;">
-      <span style="width:7px;height:7px;border-radius:999px;background:var(--signal);"></span><span><span style="color:var(--bone);">Never miss a conversation.</span> Phone, Zoom, Teams, Google Meet, and in person — all captured, all remembered, all in one place.</span>
-    </div>
-  </div>
-</section>
-
-<!-- 03 · COMPARISON -->
-<section id="compare" class="sec light">
-  <div class="wrap">
-    <div data-reveal style="max-width:820px;margin-bottom:48px;">
-      <div class="eyebrow" style="color:var(--steel-500);margin-bottom:20px;">03 &mdash; Built differently</div>
-      <h2 class="disp" style="font-size:clamp(34px,4.2vw,60px);">Most tools capture one channel and forget the rest. Ella captures them all — <span class="it" style="color:var(--signal-deep);">and remembers.</span></h2>
-    </div>
-    <div data-reveal class="g-2 hair-l" style="display:grid;grid-template-columns:1fr 1fr;">
-      <div style="background:var(--bone-100);padding:36px 32px;">
-        <h3 style="font-family:var(--font-sans);font-size:18px;font-weight:600;margin-bottom:24px;color:var(--steel-600);">Other tools</h3>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <div style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:var(--steel-600);"><span style="color:var(--steel-400);flex:none;margin-top:1px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>Only captures one channel — usually just the phone</div>
-          <div style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:var(--steel-600);"><span style="color:var(--steel-400);flex:none;margin-top:1px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>Forgets previous conversations</div>
-          <div style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:var(--steel-600);"><span style="color:var(--steel-400);flex:none;margin-top:1px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>Misses in-person and video meetings entirely</div>
+    <!-- ───────────────────── Channels ───────────────────── -->
+    <section class="band" id="channels">
+      <div class="band-head center reveal">
+        <span class="eyebrow">Every channel. Every conversation.</span>
+        <h2>If a customer talks to you, Remi is already listening.</h2>
+        <p class="sub">Remi is AI-native — it plugs into every place your conversations happen and captures all of them automatically. No note-taking, no missed follow-ups, no "what did we say last time?"</p>
+      </div>
+      <div class="channel-grid">
+        <div class="channel reveal">
+          <div class="ch-ic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+          </div>
+          <h3>Phone calls</h3>
+          <p>Inbound and outbound. Remi answers, talks, and logs every call — with full recall of past conversations.</p>
+        </div>
+        <div class="channel reveal d1">
+          <div class="ch-ic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg>
+          </div>
+          <h3>Video meetings</h3>
+          <p>Joins your <strong>Zoom</strong>, <strong>Microsoft Teams</strong>, and <strong>Google Meet</strong> calls to record, transcribe, and summarize automatically.</p>
+        </div>
+        <div class="channel reveal d2">
+          <div class="ch-ic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>In-person meetings</h3>
+          <p>Capture face-to-face conversations on any device. Remi transcribes the room and files it with the right customer.</p>
+        </div>
+        <div class="channel reveal d3">
+          <div class="ch-ic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+          </div>
+          <h3>One memory, total recall</h3>
+          <p>Every channel flows into a single AI memory per customer — so Remi, and your team, never miss a conversation.</p>
         </div>
       </div>
-      <div style="background:var(--ink);padding:36px 32px;">
-        <h3 style="font-family:var(--font-sans);font-size:18px;font-weight:600;margin-bottom:24px;color:var(--signal);">Ella</h3>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <div style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:var(--steel-200);"><span style="color:var(--signal);flex:none;margin-top:1px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polyline points="4 12 9 17 20 6"/></svg></span>Captures phone, video, and in-person — every channel</div>
-          <div style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:var(--steel-200);"><span style="color:var(--signal);flex:none;margin-top:1px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polyline points="4 12 9 17 20 6"/></svg></span>Recalls every past detail across all of them</div>
-          <div style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:var(--steel-200);"><span style="color:var(--signal);flex:none;margin-top:1px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polyline points="4 12 9 17 20 6"/></svg></span>AI-native: never misses a single conversation</div>
+      <div class="never-miss reveal">
+        <span class="dot live" aria-hidden="true"></span>
+        <span><strong>Never miss a conversation.</strong> Phone, Zoom, Teams, Google Meet, and in person — all captured, all remembered, all in one place.</span>
+      </div>
+    </section>
+
+    <!-- ───────────────────── Comparison ───────────────────── -->
+    <section class="band" id="compare">
+      <div class="band-head reveal">
+        <span class="eyebrow">Built differently</span>
+        <h2>Most tools capture one channel and forget the rest. Remi captures them all — and remembers.</h2>
+      </div>
+      <div class="vs-grid">
+        <div class="vs-col bad-col reveal">
+          <div class="vs-label">Other tools</div>
+          <ul class="vs-list">
+            <li><span class="x" aria-hidden="true">✕</span> Only captures one channel — usually just the phone</li>
+            <li><span class="x" aria-hidden="true">✕</span> Forgets previous conversations</li>
+            <li><span class="x" aria-hidden="true">✕</span> Misses in-person and video meetings entirely</li>
+          </ul>
+        </div>
+        <div class="vs-col good-col reveal d1">
+          <div class="vs-label">Remi</div>
+          <ul class="vs-list">
+            <li><span class="ck" aria-hidden="true">✓</span> Captures phone, video, and in-person — every channel</li>
+            <li><span class="ck" aria-hidden="true">✓</span> Recalls every past detail across all of them</li>
+            <li><span class="ck" aria-hidden="true">✓</span> AI-native: never misses a single conversation</li>
+          </ul>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- 04 · WHY -->
-<section id="how" class="sec deep brd">
-  <div class="wrap">
-    <div data-reveal style="max-width:720px;margin-bottom:48px;">
-      <div class="eyebrow" style="color:var(--signal);margin-bottom:20px;">04 &mdash; Why teams run on Ella</div>
-      <h2 class="disp" style="font-size:clamp(38px,4.6vw,68px);color:var(--bone);">Capture everything. Remember everyone. <span class="it" style="color:var(--signal);">Miss nothing.</span></h2>
-      <p style="font-size:19px;line-height:1.55;color:var(--steel-300);font-weight:300;margin-top:24px;">An AI memory that's awake every hour, on every channel, remembering every customer.</p>
-    </div>
-    <div data-reveal class="grid-3 hair-d">
-      <div style="background:var(--ink);padding:36px 30px;"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></div><h3 style="font-family:var(--font-sans);font-size:20px;font-weight:600;margin-bottom:10px;color:var(--bone);">Total recall</h3><p style="font-size:15px;line-height:1.55;color:var(--steel-400);">Ella remembers every prior call, meeting, name, and promise — across channels — and picks up exactly where you left off.</p></div>
-      <div style="background:var(--ink);padding:36px 30px;"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3 style="font-family:var(--font-sans);font-size:20px;font-weight:600;margin-bottom:10px;color:var(--bone);">Always on</h3><p style="font-size:15px;line-height:1.55;color:var(--steel-400);">Nights, weekends, holidays. Ella answers, joins, and listens so no lead or detail ever slips away.</p></div>
-      <div style="background:var(--ink);padding:36px 30px;"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3 style="font-family:var(--font-sans);font-size:20px;font-weight:600;margin-bottom:10px;color:var(--bone);">Human conversation</h3><p style="font-size:15px;line-height:1.55;color:var(--steel-400);">Natural, warm, and on-brand. Callers feel like they're talking to your best front-desk hire.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 05 · LEADER -->
-<section class="sec-sm brd">
-  <div class="wrap">
-    <div data-reveal style="max-width:760px;margin-bottom:52px;">
-      <div class="eyebrow" style="color:var(--signal);margin-bottom:20px;">05 &mdash; The industry leader</div>
-      <h2 class="disp" style="font-size:clamp(38px,4.6vw,68px);color:var(--bone);">We outclass every other A.I. agent on price <span class="it" style="color:var(--signal);">and features.</span></h2>
-      <p style="font-size:18px;line-height:1.55;color:var(--steel-300);font-weight:300;margin-top:22px;">No one even comes close. Ella pairs perfect memory with the lowest cost of ownership in the category.</p>
-    </div>
-    <div data-reveal class="grid-4" style="gap:36px;">
-      <div style="border-top:1px solid var(--signal);padding-top:24px;"><div class="disp" style="font-size:clamp(44px,5vw,76px);line-height:.95;color:var(--bone);">100<span style="font-size:.5em;color:var(--signal);">%</span></div><div class="eyebrow" style="font-size:11px;letter-spacing:.1em;color:var(--steel-400);margin-top:14px;">Conversation recall</div></div>
-      <div style="border-top:1px solid var(--steel-700);padding-top:24px;"><div class="disp" style="font-size:clamp(44px,5vw,76px);line-height:.95;color:var(--bone);">24/7</div><div class="eyebrow" style="font-size:11px;letter-spacing:.1em;color:var(--steel-400);margin-top:14px;">Always listening</div></div>
-      <div style="border-top:1px solid var(--steel-700);padding-top:24px;"><div class="disp" style="font-size:clamp(44px,5vw,76px);line-height:.95;color:var(--bone);">5<span style="font-size:.5em;color:var(--signal);">+</span></div><div class="eyebrow" style="font-size:11px;letter-spacing:.1em;color:var(--steel-400);margin-top:14px;">Channels captured</div></div>
-      <div style="border-top:1px solid var(--steel-700);padding-top:24px;"><div class="disp" style="font-size:clamp(44px,5vw,76px);line-height:.95;color:var(--bone);">0</div><div class="eyebrow" style="font-size:11px;letter-spacing:.1em;color:var(--steel-400);margin-top:14px;">Conversations missed</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 06 · IVR -->
-<section id="ivr" class="sec light">
-  <div class="wrap g-split" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
-    <div data-reveal>
-      <div class="eyebrow" style="color:var(--steel-500);margin-bottom:20px;">06 &mdash; Advanced IVR system</div>
-      <h2 class="disp" style="font-size:clamp(34px,4.2vw,60px);">Route, gate, and personalize <span class="it" style="color:var(--signal-deep);">every call.</span></h2>
-      <p class="lead" style="font-size:19px;color:var(--steel-600);margin:24px 0 22px;">Add extra touches to your phone system to enhance the customer experience — smart menus, caller ID memory, and conditional routing built right in.</p>
-      <span class="eyebrow" style="display:inline-block;color:var(--signal-deep);border:1px solid var(--steel-300);border-radius:2px;padding:7px 12px;">Available with upgraded packages</span>
-    </div>
-    <div data-reveal>
-      <div style="background:var(--ink);border:1px solid var(--steel-800);border-radius:2px;overflow:hidden;font-family:var(--font-mono);">
-        <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--steel-800);font-size:12px;color:var(--steel-400);"><span style="width:8px;height:8px;border-radius:999px;background:var(--signal);"></span>ivr &middot; routing</div>
-        <div style="padding:8px 0;">
-          <div style="display:flex;align-items:center;gap:14px;padding:13px 20px;font-size:14px;color:var(--bone);border-bottom:1px solid var(--steel-800);"><span style="color:var(--signal);width:16px;">1</span>Existing customer<span style="margin-left:auto;color:var(--steel-400);">&rarr; Ella, with history</span></div>
-          <div style="display:flex;align-items:center;gap:14px;padding:13px 20px;font-size:14px;color:var(--bone);border-bottom:1px solid var(--steel-800);"><span style="color:var(--signal);width:16px;">2</span>New lead<span style="margin-left:auto;color:var(--steel-400);">&rarr; Nurture flow</span></div>
-          <div style="display:flex;align-items:center;gap:14px;padding:13px 20px;font-size:14px;color:var(--bone);border-bottom:1px solid var(--steel-800);"><span style="color:var(--signal);width:16px;">3</span>Billing &amp; contracts<span style="margin-left:auto;color:var(--steel-400);">&rarr; Payments</span></div>
-          <div style="display:flex;align-items:center;gap:14px;padding:13px 20px;font-size:14px;color:var(--bone);border-bottom:1px solid var(--steel-800);"><span style="color:var(--signal);width:16px;">4</span>Book an appointment<span style="margin-left:auto;color:var(--steel-400);">&rarr; Calendar</span></div>
-          <div style="display:flex;align-items:center;gap:14px;padding:13px 20px;font-size:14px;color:var(--steel-500);"><span style="color:var(--steel-500);width:16px;">0</span>Reach a human<span style="margin-left:auto;">&rarr; Transfer</span></div>
+    <!-- ───────────────────── Features ───────────────────── -->
+    <section class="band tight" id="how">
+      <div class="band-head center reveal">
+        <span class="eyebrow">Why teams run on Remi</span>
+        <h2>Capture everything. Remember everyone. Miss nothing.</h2>
+        <p class="sub">An AI memory that's awake every hour, on every channel, remembering every customer — and acting on what it hears.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature reveal">
+          <div class="fic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+          </div>
+          <h3>Total recall</h3>
+          <p>Remi remembers every prior call, meeting, name, and promise — across channels — and picks up exactly where you left off.</p>
+        </div>
+        <div class="feature reveal d1">
+          <div class="fic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Always on</h3>
+          <p>Nights, weekends, holidays. Remi answers, joins, and listens so no lead or detail ever slips away.</p>
+        </div>
+        <div class="feature reveal d2">
+          <div class="fic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Human conversation</h3>
+          <p>Natural, warm, and on-brand. Callers feel like they're talking to your best front-desk hire.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>Acts on what it hears</h3>
+          <p>Remi doesn't just take notes. It nurtures leads, books appointments, sends contracts, and closes sales — automatically.</p>
+        </div>
+        <div class="feature reveal d1">
+          <div class="fic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>Private by design</h3>
+          <p>Every transcript is filed to the right customer and stays inside your workspace — your conversations, your data.</p>
+        </div>
+        <div class="feature reveal d2">
+          <div class="fic">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          </div>
+          <h3>Every deal, visible</h3>
+          <p>Summaries, next steps, and outcomes roll up into one console — so you see every conversation moving your pipeline.</p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- 07 · USE CASES -->
-<section id="work" class="sec brd">
-  <div class="wrap">
-    <div data-reveal style="max-width:720px;margin-bottom:48px;">
-      <div class="eyebrow" style="color:var(--signal);margin-bottom:20px;">07 &mdash; Working for your business</div>
-      <h2 class="disp" style="font-size:clamp(38px,4.6vw,68px);color:var(--bone);">What would Ella do <span class="it" style="color:var(--signal);">inside your business?</span></h2>
-    </div>
-    <div data-reveal class="grid-4 hair-d" id="use-grid"></div>
-    <p data-reveal style="font-family:var(--font-mono);font-size:11px;color:var(--steel-600);margin-top:22px;">* Denotes upgraded-package features.</p>
-  </div>
-</section>
-
-<!-- 08 · PRICING -->
-<section id="pricing" class="sec light">
-  <div class="wrap">
-    <div data-reveal class="center mid" style="max-width:720px;margin-bottom:48px;">
-      <div class="eyebrow" style="color:var(--steel-500);margin-bottom:20px;">08 &mdash; Choose your plan</div>
-      <h2 class="disp" style="font-size:clamp(38px,4.6vw,68px);">Simple pricing. No contracts. <span class="it" style="color:var(--signal-deep);">Cancel anytime.</span></h2>
-    </div>
-    <div data-reveal class="price-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--steel-200);border:1px solid var(--steel-200);">
-      <div style="background:#fff;padding:36px 32px;display:flex;flex-direction:column;">
-        <div class="eyebrow" style="color:var(--steel-500);margin-bottom:16px;">Monthly</div>
-        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:24px;"><span style="font-family:var(--font-mono);font-size:14px;color:var(--steel-400);text-decoration:line-through;">$3,000</span><span class="disp" style="font-size:52px;line-height:1;">$600</span><span style="font-family:var(--font-mono);font-size:12px;color:var(--steel-500);">/mo</span></div>
-        <ul style="list-style:none;margin:0 0 28px;padding:0;display:flex;flex-direction:column;gap:11px;font-size:14.5px;color:var(--steel-600);">
-          <li>Up to 3 agents</li><li>$400 onboarding</li><li>Free customizations</li><li>3 backup numbers</li>
-        </ul>
-        <a href="tel:+14438704072" class="btn-outline full" style="margin-top:auto;">Choose Monthly</a>
+    <!-- ───────────────────── Industry leader ───────────────────── -->
+    <section class="leader">
+      <div class="leader-inner reveal">
+        <span class="eyebrow on-dark">The industry leader</span>
+        <h2>We outclass every other A.I. agent on price <em>and</em> features.</h2>
+        <p>No one even comes close. Remi pairs perfect memory with the lowest cost of ownership in the category.</p>
+        <div class="leader-stats">
+          <div class="lstat"><div class="ln"><span data-count="100">100</span>%</div><div class="ll">Conversation recall</div></div>
+          <div class="lstat"><div class="ln">24/7</div><div class="ll">Always listening</div></div>
+          <div class="lstat"><div class="ln"><span data-count="5">5</span>+</div><div class="ll">Channels captured</div></div>
+          <div class="lstat"><div class="ln">0</div><div class="ll">Conversations missed</div></div>
+        </div>
       </div>
-      <div style="background:var(--ink);color:var(--bone);padding:36px 32px;display:flex;flex-direction:column;position:relative;">
-        <div class="eyebrow" style="position:absolute;top:20px;right:24px;color:var(--ink);background:var(--signal);border-radius:2px;padding:4px 8px;">Most popular</div>
-        <div class="eyebrow" style="color:var(--signal);margin-bottom:16px;">Yearly</div>
-        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:24px;"><span style="font-family:var(--font-mono);font-size:14px;color:var(--steel-500);text-decoration:line-through;">$3,000</span><span class="disp" style="font-size:52px;line-height:1;color:var(--bone);">$400</span><span style="font-family:var(--font-mono);font-size:12px;color:var(--steel-400);">/mo</span></div>
-        <ul style="list-style:none;margin:0 0 28px;padding:0;display:flex;flex-direction:column;gap:11px;font-size:14.5px;color:var(--steel-300);">
-          <li>Up to 3 agents</li><li>Free onboarding</li><li>Free customizations</li><li>5 backup numbers</li>
-        </ul>
-        <a href="tel:+14438704072" class="btn-primary full" style="margin-top:auto;">Choose Yearly</a>
+    </section>
+
+    <!-- ───────────────────── Testimonial ───────────────────── -->
+    <section class="band tight" id="proof">
+      <figure class="quote reveal">
+        <div class="quote-mark" aria-hidden="true">“</div>
+        <blockquote>
+          Remi picked up a call at 9&nbsp;pm, remembered a deposit conversation from three months
+          earlier, and had the signing booked before we opened the next morning. It's like the
+          whole team suddenly shares one perfect memory.
+        </blockquote>
+        <figcaption>
+          <span class="q-avatar" aria-hidden="true">DK</span>
+          <span class="q-who"><strong>Dana K.</strong><span>Broker-owner · early Remi customer</span></span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ───────────────────── Advanced IVR ───────────────────── -->
+    <section class="band" id="ivr">
+      <div class="split">
+        <div class="split-copy reveal">
+          <span class="eyebrow">Advanced IVR system</span>
+          <h2>Route, gate, and personalize every call.</h2>
+          <p class="sub">Add extra touches to your phone system to enhance the customer experience — smart menus, caller ID memory, and conditional routing built right in.</p>
+          <span class="tag info">Available with upgraded packages</span>
+        </div>
+        <div class="split-visual reveal d1" aria-hidden="true">
+          <div class="ivr-card">
+            <div class="ivr-row"><span class="ivr-k">1</span> Existing customer <span class="ivr-route">→ Remi, with history</span></div>
+            <div class="ivr-row"><span class="ivr-k">2</span> New lead <span class="ivr-route">→ Nurture flow</span></div>
+            <div class="ivr-row"><span class="ivr-k">3</span> Billing &amp; contracts <span class="ivr-route">→ Payments</span></div>
+            <div class="ivr-row"><span class="ivr-k">4</span> Book an appointment <span class="ivr-route">→ Calendar</span></div>
+            <div class="ivr-row muted"><span class="ivr-k">0</span> Reach a human <span class="ivr-route">→ Transfer</span></div>
+          </div>
+        </div>
       </div>
-      <div style="background:#fff;padding:36px 32px;display:flex;flex-direction:column;">
-        <div class="eyebrow" style="color:var(--steel-500);margin-bottom:16px;">Lifetime</div>
-        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:24px;"><span style="font-family:var(--font-mono);font-size:14px;color:var(--steel-400);text-decoration:line-through;">$50,000+</span><span class="disp" style="font-size:52px;line-height:1;">$12,000</span><span style="font-family:var(--font-mono);font-size:12px;color:var(--steel-500);">once</span></div>
-        <ul style="list-style:none;margin:0 0 28px;padding:0;display:flex;flex-direction:column;gap:11px;font-size:14.5px;color:var(--steel-600);">
-          <li>Up to 3 agents</li><li>Free onboarding</li><li>Free customizations</li><li>5 backup numbers</li>
-        </ul>
-        <a href="tel:+14438704072" class="btn-outline full" style="margin-top:auto;">Choose Lifetime</a>
+    </section>
+
+    <!-- ───────────────────── Use cases ───────────────────── -->
+    <section class="band tight" id="work">
+      <div class="band-head center reveal">
+        <span class="eyebrow">Working for your business</span>
+        <h2>What would Remi do inside your business?</h2>
       </div>
+      <div class="use-grid">
+        <div class="use reveal"><span class="un">01</span><h3>Nurture leads</h3><p>Follows up, answers questions, and keeps every prospect warm.</p></div>
+        <div class="use reveal d1"><span class="un">02</span><h3>Onboard new clients<span class="star">*</span></h3><p>Walks new customers through setup, paperwork, and first steps.</p></div>
+        <div class="use reveal d2"><span class="un">03</span><h3>Close sales</h3><p>Handles objections and moves ready buyers across the finish line.</p></div>
+        <div class="use reveal d3"><span class="un">04</span><h3>Payments &amp; contracts</h3><p>Collects payments and sends contracts without lifting a finger.</p></div>
+        <div class="use reveal"><span class="un">05</span><h3>Appointments</h3><p>Books, confirms, and reschedules straight into your calendar.</p></div>
+        <div class="use reveal d1"><span class="un">06</span><h3>Obtain reviews</h3><p>Asks happy customers for reviews at exactly the right moment.</p></div>
+        <div class="use reveal d2"><span class="un">07</span><h3>Operations<span class="star">*</span></h3><p>Your personal assistant for the day-to-day that never sleeps.</p></div>
+      </div>
+      <p class="footnote">* Denotes upgraded-package features.</p>
+    </section>
+
+    <!-- ───────────────────── Pricing ───────────────────── -->
+    <section class="band" id="pricing">
+      <div class="band-head center reveal">
+        <span class="eyebrow">Choose your plan</span>
+        <h2>Simple pricing. No contracts. Cancel anytime.</h2>
+      </div>
+      <div class="price-grid">
+        <!-- Monthly -->
+        <div class="plan reveal">
+          <div class="plan-name">Monthly</div>
+          <div class="plan-price"><span class="was">$3,000</span><span class="now">$600</span><span class="per">/month</span></div>
+          <ul class="plan-feats">
+            <li>Up to 3 agents</li>
+            <li>$400 onboarding</li>
+            <li>Free customizations</li>
+            <li>3 backup numbers</li>
+          </ul>
+          <a href="tel:+14438704072" class="btn ghost full">Choose Monthly</a>
+        </div>
+
+        <!-- Yearly (featured) -->
+        <div class="plan featured reveal d1">
+          <div class="plan-flag">Most popular</div>
+          <div class="plan-name">Yearly</div>
+          <div class="plan-price"><span class="was">$3,000</span><span class="now">$400</span><span class="per">/month</span></div>
+          <ul class="plan-feats">
+            <li>Up to 3 agents</li>
+            <li>Free onboarding</li>
+            <li>Free customizations</li>
+            <li>5 backup numbers</li>
+          </ul>
+          <a href="tel:+14438704072" class="btn primary full">Choose Yearly</a>
+        </div>
+
+        <!-- Lifetime -->
+        <div class="plan reveal d2">
+          <div class="plan-name">Lifetime</div>
+          <div class="plan-price"><span class="was">$50,000+</span><span class="now">$12,000</span><span class="per">once</span></div>
+          <ul class="plan-feats">
+            <li>Up to 3 agents</li>
+            <li>Free onboarding</li>
+            <li>Free customizations</li>
+            <li>5 backup numbers</li>
+          </ul>
+          <a href="tel:+14438704072" class="btn ghost full">Choose Lifetime</a>
+        </div>
+      </div>
+      <p class="footnote center">No contracts — cancel anytime.</p>
+    </section>
+
+    <!-- ───────────────────── FAQ ───────────────────── -->
+    <section class="band tight" id="faq">
+      <div class="band-head center reveal">
+        <span class="eyebrow">Questions, answered</span>
+        <h2>Everything people ask before they call.</h2>
+      </div>
+      <div class="faq-list reveal">
+        <details class="faq-item" open>
+          <summary>Which channels does Remi capture?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>All of them: inbound and outbound phone calls, Zoom, Microsoft Teams, and Google Meet video meetings, and in-person conversations captured on any device. Every channel flows into one memory per customer.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>How does Remi's memory work?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>Every conversation is transcribed and filed to the right customer automatically. The next time that customer calls — or shows up on a video meeting, or walks in — Remi recalls every prior detail, name, and promise and picks up exactly where you left off.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Does Remi just record, or does it act?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>It acts. Remi nurtures leads, books and confirms appointments, sends contracts, collects payments, requests reviews, and moves ready buyers across the finish line — based on what it hears.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Do we need HighLevel to use Remi?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>No. Remi works fully stand-alone. If you already run HighLevel, we'll build Remi natively into your existing sub-account at no extra cost.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>How long does setup take?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>Days, not months. Onboarding is included free on Yearly and Lifetime plans, and every plan includes free customizations so Remi sounds like your business from day one.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Can callers still reach a human?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>Always. Press 0 at any point and Remi transfers the call to your team — with the full conversation context attached, so nobody repeats themselves.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ───────────────────── Integration ───────────────────── -->
+    <section class="band tight" id="integration">
+      <div class="integrate reveal">
+        <span class="eyebrow">Integration</span>
+        <h2>Stand-alone, or native inside HighLevel.</h2>
+        <p class="sub">
+          Remi works as a stand-alone agent or as a native integration with HighLevel.
+          We'll build Remi into your existing HighLevel sub-account at no extra cost to you.
+        </p>
+        <div class="logo-chip">HighLevel</div>
+      </div>
+    </section>
+
+    <!-- ───────────────────── Final CTA ───────────────────── -->
+    <section class="finalcta" id="contact">
+      <div class="reveal">
+        <span class="eyebrow accent-eyebrow"><span class="dot live" aria-hidden="true"></span> Hear it for yourself</span>
+        <h2>Yes — call us. Remi remembers.</h2>
+        <p>Hear Remi for yourself. One call and you'll get it.</p>
+        <div class="finalcta-actions">
+          <a href="tel:+14438704072" class="btn primary lg">+1 (443) 870-4072</a>
+          <a href="console.html" class="btn ghost lg">Open console →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ───────────────────────── Sticky CTA ───────────────────────── -->
+  <div class="sticky-cta" id="stickyCta" hidden>
+    <span class="sc-copy"><span class="dot live" aria-hidden="true"></span> Remi remembers every conversation.</span>
+    <a href="tel:+14438704072" class="btn primary">Call +1 (443) 870-4072</a>
+  </div>
+
+  <!-- ───────────────────────── Footer ───────────────────────── -->
+  <footer class="footer">
+    <div class="foot-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">r</span>
+        <span class="brand-name">Remi</span>
+      </div>
+      <div class="foot-meta">AI-native conversation intelligence — phone, video, and in person.</div>
+      <a href="tel:+14438704072" class="foot-phone">+1 (443) 870-4072</a>
     </div>
-    <p data-reveal class="center" style="font-family:var(--font-mono);font-size:11px;color:var(--steel-500);margin-top:22px;">No contracts — cancel anytime.</p>
-  </div>
-</section>
+    <div class="foot-fine">© 2026 Remi · An Endurance Labs product</div>
+  </footer>
 
-<!-- 09 · INTEGRATION -->
-<section id="integration" class="sec-sm brd">
-  <div class="wrap center mid" data-reveal style="max-width:760px;">
-    <div class="eyebrow" style="color:var(--signal);margin-bottom:20px;">09 &mdash; Integration</div>
-    <h2 class="disp" style="font-size:clamp(34px,4.2vw,60px);color:var(--bone);">Stand-alone, or native <span class="it" style="color:var(--signal);">inside HighLevel.</span></h2>
-    <p style="font-size:19px;line-height:1.55;color:var(--steel-300);font-weight:300;margin:22px auto 28px;max-width:620px;">Ella works as a stand-alone agent or as a native integration with HighLevel. We'll build Ella into your existing HighLevel sub-account at no extra cost to you.</p>
-    <span class="eyebrow" style="display:inline-block;color:var(--bone);border:1px solid var(--steel-700);border-radius:2px;padding:10px 18px;letter-spacing:.1em;">HighLevel</span>
-  </div>
-</section>
+  <script>
+    (function () {
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-<!-- FINAL CTA -->
-<section id="contact" class="sec deep" style="position:relative;padding:clamp(96px,12vw,176px) var(--container-pad);overflow:hidden;">
-  <div style="position:absolute;inset:0;pointer-events:none;opacity:.6;background-image:radial-gradient(circle at 50% 120%,rgba(199,167,108,0.14),transparent 55%);"></div>
-  <div class="center mid" data-reveal style="position:relative;max-width:900px;">
-    <div class="eyebrow" style="display:inline-flex;align-items:center;gap:10px;color:var(--signal);margin-bottom:30px;"><span style="width:7px;height:7px;border-radius:999px;background:var(--signal);"></span>Hear it for yourself</div>
-    <h2 class="disp" style="font-size:clamp(50px,8vw,120px);line-height:.98;letter-spacing:-.025em;color:var(--bone);">Yes — <span class="it" style="color:var(--signal);">call us.</span></h2>
-    <p style="font-size:21px;line-height:1.55;font-weight:300;color:var(--steel-300);max-width:560px;margin:30px auto 40px;">Hear Ella for yourself. One call and you'll get it.</p>
-    <a class="btn-primary" href="tel:+14438704072" style="font-size:18px;padding:18px 32px;">+1 (443) 870-4072</a>
-  </div>
-</section>
+      /* Scroll-reveal */
+      var reveals = [].slice.call(document.querySelectorAll('.reveal'));
+      function show(el) { el.classList.add('visible'); }
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        reveals.forEach(show);
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        reveals.forEach(function (el) {
+          if (el.getBoundingClientRect().top < (window.innerHeight || 800) * 0.92) show(el);
+          else io.observe(el);
+        });
+        /* Safety net: never leave content hidden */
+        setTimeout(function () { reveals.forEach(show); }, 2500);
+      }
 
-<!-- FOOTER -->
-<footer style="padding:56px var(--container-pad) 48px;">
-  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
-    <div class="brand"><span class="mk"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></span><span class="nm">Ella</span></div>
-    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--steel-500);max-width:520px;text-align:center;">AI-native conversation intelligence — phone, video, and in person &middot; An Endurance Labs product</div>
-    <a href="tel:+14438704072" style="font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;color:var(--signal);">+1 (443) 870-4072</a>
-  </div>
-</footer>
+      /* Header shadow on scroll + sticky CTA */
+      var topbar = document.querySelector('.topbar');
+      var sticky = document.getElementById('stickyCta');
+      var finalcta = document.getElementById('contact');
+      function onScroll() {
+        var y = window.scrollY || 0;
+        topbar.classList.toggle('scrolled', y > 8);
+        if (sticky) {
+          var nearEnd = finalcta && finalcta.getBoundingClientRect().top < (window.innerHeight || 800);
+          var showBar = y > 900 && !nearEnd;
+          sticky.hidden = !showBar;
+          sticky.classList.toggle('on', showBar);
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
 
-<script>
-  // use cases (data-driven)
-  var uses=[
-    ['01','Nurture leads','Follows up, answers questions, and keeps every prospect warm.'],
-    ['02','Onboard new clients<span style="color:#C7A76C">*</span>','Walks new customers through setup, paperwork, and first steps.'],
-    ['03','Close sales','Handles objections and moves ready buyers across the finish line.'],
-    ['04','Payments &amp; contracts','Collects payments and sends contracts without lifting a finger.'],
-    ['05','Appointments','Books, confirms, and reschedules straight into your calendar.'],
-    ['06','Obtain reviews','Asks happy customers for reviews at exactly the right moment.'],
-    ['07','Operations<span style="color:#C7A76C">*</span>','Your personal assistant for the day-to-day that never sleeps.']
-  ];
-  document.getElementById('use-grid').innerHTML=uses.map(function(u){
-    return '<div class="card-d"><div style="font-family:var(--font-mono);font-size:12px;color:var(--signal);margin-bottom:16px;">'+u[0]+'</div>'+
-      '<h3 style="font-family:var(--font-sans);font-size:18px;font-weight:600;margin-bottom:8px;color:var(--bone);">'+u[1]+'</h3>'+
-      '<p style="font-size:14px;line-height:1.5;color:var(--steel-400);">'+u[2]+'</p></div>';
-  }).join('');
+      /* Stat count-up (skipped for reduced motion) */
+      var counters = [].slice.call(document.querySelectorAll('[data-count]'));
+      if (counters.length && !reduceMotion && 'IntersectionObserver' in window) {
+        var cio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            cio.unobserve(e.target);
+            var el = e.target, target = parseInt(el.getAttribute('data-count'), 10) || 0;
+            var t0 = null, dur = 900;
+            function step(ts) {
+              if (!t0) t0 = ts;
+              var p = Math.min((ts - t0) / dur, 1);
+              el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+              if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          });
+        }, { threshold: 0.6 });
+        counters.forEach(function (el) { cio.observe(el); });
+      }
 
-  // reveal on scroll (sets inline opacity too, so it can never get stuck hidden)
-  var reveals=[].slice.call(document.querySelectorAll('[data-reveal]'));
-  function reveal(el){el.classList.add('visible');el.style.opacity='1';el.style.transform='none';}
-  var vh=window.innerHeight||800;
-  reveals.forEach(function(el){if(el.getBoundingClientRect().top<vh*0.92)reveal(el);});
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){reveal(e.target);io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
-    reveals.forEach(function(el){io.observe(el);});
-    setTimeout(function(){reveals.forEach(reveal);},1500);
-  } else { reveals.forEach(reveal); }
-
-  // header scroll state
-  var header=document.getElementById('nav');
-  function onScroll(){header.classList.toggle('scrolled',window.scrollY>24);}
-  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-</script>
+      /* FAQ: keep one item open at a time */
+      var faqs = [].slice.call(document.querySelectorAll('.faq-item'));
+      faqs.forEach(function (d) {
+        d.addEventListener('toggle', function () {
+          if (d.open) faqs.forEach(function (o) { if (o !== d) o.open = false; });
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

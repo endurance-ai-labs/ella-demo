@@ -1,4 +1,4 @@
-/* Ella Console — product dashboard.
+/* Remi Console — product dashboard.
    Palette B (cool blue/slate SaaS), tokens per the design handoff README.
    Fonts: Newsreader (display/headings/numbers/avatars), Hanken Grotesk (UI/body),
    Space Mono (eyebrows, codes, phone numbers, timestamps). */
@@ -220,7 +220,7 @@ a { text-decoration: none; color: inherit; }
 .avatar.rose { background: #f2dde2; color: #8a3f55; }
 .avatar.olive { background: #e6e6cf; color: #6b6b2f; }
 
-/* ───────── Ask Ella ───────── */
+/* ───────── Ask Remi ───────── */
 .ask-fab { position: fixed; right: 28px; bottom: 24px; z-index: 60; display: inline-flex; align-items: center; gap: 9px; background: var(--accent-grad); color: #fff; border: none; border-radius: 999px; padding: 13px 20px; font-size: 14.5px; font-weight: 600; cursor: pointer; font-family: var(--f-sans); box-shadow: 0 16px 36px -10px rgba(47, 109, 240, 0.6); transition: filter 120ms ease; }
 .ask-fab:hover { filter: brightness(1.05); }
 .ask-pop { position: fixed; right: 28px; bottom: 84px; z-index: 60; width: 330px; background: #fff; border: 1px solid rgba(20, 30, 45, 0.1); border-radius: 16px; box-shadow: 0 30px 70px -20px rgba(28, 18, 8, 0.45); padding: 16px; animation: ellaPop .18s ease; }

@@ -1,4 +1,4 @@
-/* Ella — marketing demo.
+/* Remi — marketing demo (Endurance template).
    Palette + chrome borrowed from the RJS / Payline Commissions design system:
    warm near-white canvas, monochrome ink hierarchy, one bold electric-cobalt
    accent, hairline borders, restrained 6–10px radii, Inter throughout. */
@@ -98,6 +98,8 @@ a { color: inherit; }
 .brand-mark {
   display: grid; place-items: center; width: 30px; height: 30px;
   border-radius: var(--r-md); background: var(--accent); color: #fff;
+  font-size: 19px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;
+  text-transform: lowercase; padding-bottom: 3px; user-select: none;
 }
 .brand-name { font-size: 18px; letter-spacing: -0.02em; }
 .brand-sub {
@@ -315,4 +317,151 @@ main { display: block; }
   .use-grid, .channel-grid { grid-template-columns: 1fr; }
   .leader-stats { grid-template-columns: 1fr 1fr; }
   .foot-phone { margin-left: 0; width: 100%; }
+}
+
+/* ═════════════════ Remi enhancements ═════════════════ */
+
+/* ───────── Accessibility: skip link + focus ───────── */
+.skip-link {
+  position: absolute; left: 12px; top: -48px; z-index: 100;
+  background: var(--ink); color: #fff; font: 600 13px var(--font-sans);
+  padding: 10px 16px; border-radius: var(--r-md); text-decoration: none;
+  transition: top var(--dur) var(--ease);
+}
+.skip-link:focus-visible { top: 12px; outline: none; box-shadow: 0 0 0 3px var(--focus-ring); }
+a:focus-visible, summary:focus-visible {
+  outline: none; box-shadow: 0 0 0 3px var(--focus-ring); border-radius: var(--r-sm);
+}
+
+/* ───────── Topbar scrolled state ───────── */
+.topbar { transition: box-shadow var(--dur) var(--ease); }
+.topbar.scrolled { box-shadow: 0 6px 18px rgba(26, 26, 24, 0.06); }
+
+/* ───────── Hero polish ───────── */
+.hero { padding-top: 96px; }
+.hero .eyebrow { display: inline-flex; align-items: center; gap: 8px; }
+.hero h1 { font-size: clamp(38px, 5.4vw, 64px); }
+.callcard { transition: transform 240ms var(--ease), box-shadow 240ms var(--ease); }
+.callcard:hover { transform: translateY(-4px) rotate(-0.25deg); box-shadow: 0 18px 44px rgba(26, 26, 24, 0.14); }
+.bubble.them { border: 1px solid var(--line); }
+.avatar { box-shadow: 0 0 0 3px var(--accent-soft); }
+
+/* ───────── Works-with chip strip ───────── */
+.works-with { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--surface); }
+.ww-inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 22px 28px;
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+}
+.ww-label {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.10em; color: var(--muted-2); flex: none;
+}
+.ww-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; }
+.ww-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13.5px; font-weight: 600; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line-2);
+  border-radius: var(--r-pill); padding: 8px 15px;
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease),
+              background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.ww-chip svg { width: 15px; height: 15px; color: var(--accent-2); flex: none; }
+.ww-chip:hover { border-color: var(--accent); color: var(--accent-2); background: var(--accent-soft); transform: translateY(-1px); }
+
+/* ───────── Scroll reveal (JS-gated; no-JS and reduced-motion safe) ───────── */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 640ms var(--ease), transform 640ms var(--ease); }
+.js .reveal.visible { opacity: 1; transform: none; }
+.js .reveal.d1 { transition-delay: 90ms; }
+.js .reveal.d2 { transition-delay: 180ms; }
+.js .reveal.d3 { transition-delay: 270ms; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .callcard:hover, .ww-chip:hover, .channel:hover, .feature:hover, .use:hover,
+  .btn.primary:hover { transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ───────── Testimonial ───────── */
+.quote {
+  max-width: 780px; margin: 0 auto; text-align: center; position: relative;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl);
+  padding: 52px 44px 40px; box-shadow: var(--shadow-lift);
+}
+.quote-mark {
+  position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
+  width: 52px; height: 52px; border-radius: var(--r-pill);
+  background: var(--accent); color: #fff; display: grid; place-items: center;
+  font-size: 34px; font-weight: 800; line-height: 1; padding-top: 14px;
+  box-shadow: 0 8px 20px rgba(46, 111, 242, 0.30);
+}
+.quote blockquote {
+  margin: 0; font-size: clamp(19px, 2.4vw, 24px); line-height: 1.5;
+  color: var(--ink); font-weight: 500; letter-spacing: -0.015em;
+}
+.quote figcaption { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 26px; }
+.q-avatar {
+  width: 42px; height: 42px; border-radius: var(--r-pill); flex: none;
+  background: var(--accent-soft); color: var(--accent-2);
+  display: grid; place-items: center; font-weight: 700; font-size: 14px;
+}
+.q-who { text-align: left; font-size: 14px; line-height: 1.35; display: flex; flex-direction: column; }
+.q-who strong { color: var(--ink); }
+.q-who span { color: var(--muted); }
+
+/* ───────── FAQ accordion ───────── */
+.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.faq-item[open] { border-color: var(--accent); box-shadow: var(--shadow-lift); }
+.faq-item summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px;
+  padding: 18px 20px; font-size: 16px; font-weight: 600; color: var(--ink);
+  border-radius: var(--r-lg); user-select: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--accent-2); }
+.faq-ic { margin-left: auto; position: relative; flex: none; width: 22px; height: 22px; border-radius: var(--r-pill); background: var(--accent-soft); }
+.faq-ic::before, .faq-ic::after {
+  content: ""; position: absolute; top: 50%; left: 50%; background: var(--accent-2);
+  transform: translate(-50%, -50%); transition: transform var(--dur) var(--ease);
+}
+.faq-ic::before { width: 10px; height: 2px; }
+.faq-ic::after { width: 2px; height: 10px; }
+.faq-item[open] .faq-ic::after { transform: translate(-50%, -50%) scaleY(0); }
+.faq-body { padding: 0 20px 20px 20px; }
+.faq-body p { color: var(--muted); font-size: 15px; line-height: 1.65; max-width: 640px; }
+
+/* ───────── Final CTA polish ───────── */
+.finalcta { padding-top: 72px; }
+.finalcta .eyebrow { display: inline-flex; align-items: center; gap: 8px; }
+.finalcta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+
+/* ───────── Sticky CTA ───────── */
+.sticky-cta {
+  position: fixed; left: 50%; bottom: 18px; z-index: 60;
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(160%) blur(10px);
+  border: 1px solid var(--line-2); border-radius: var(--r-pill);
+  padding: 8px 8px 8px 20px; box-shadow: var(--shadow-pop);
+  opacity: 0; transform: translate(-50%, 12px); pointer-events: none;
+  transition: opacity 240ms var(--ease), transform 240ms var(--ease);
+}
+.sticky-cta.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.sticky-cta .sc-copy { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.sticky-cta .btn { border-radius: var(--r-pill); }
+@media (prefers-reduced-motion: reduce) { .sticky-cta { transition: none; } }
+
+/* ───────── Responsive additions ───────── */
+@media (max-width: 900px) {
+  .ww-inner { justify-content: center; }
+}
+@media (max-width: 560px) {
+  .sticky-cta .sc-copy { display: none; }
+  .sticky-cta { padding: 6px; }
+  .quote { padding: 44px 22px 32px; }
+  .hero-cta .btn, .finalcta-actions .btn { width: 100%; }
+  .right .btn.primary { display: none; }
 }
